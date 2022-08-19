@@ -1,5 +1,5 @@
-from bicycle_hires.views import UploadFileView,DownloadCleanedDataView
-from bicycle_hires.constants import UPLOAD_FILE_ENDPOINT,DOWNLOAD_FILE_ENDPOINT
+from bicycle_hires.views import UploadFileView, DownloadCleanedDataView
+from bicycle_hires.constants import UPLOAD_FILE_ENDPOINT, DOWNLOAD_FILE_ENDPOINT
 
 
 def initialize_bicycle_hires_api_urls(api) -> None:

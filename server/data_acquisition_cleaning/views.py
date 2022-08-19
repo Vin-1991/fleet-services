@@ -1,16 +1,17 @@
 __all__ = []
 import werkzeug
-from flask import send_file
+import threading
+from typing import List
+from flask import request, send_file
 from flask_restful import Resource, reqparse
 
-from bicycle_hires.constants import (
+from .constants import (
     INPUT_FILE_REQUIRED,
     INPUT_FILE_ERROR,
-    TABLE_NAME_REQUIRED,
-    BICYCLE_HIRE_TABLE_COLUMNS,
     DOWNLOAD_FILE_ERROR,
 )
-from bicycle_hires.service import DownloadCleanedDataViewService
+from .service import DownloadCleanedDataViewService
+from bicycle_hires.constants import BICYCLE_HIRE_TABLE_COLUMNS
 from utils.utils import make_json_response, ingest_file_to_db, delete_created_csv
 
 
@@ -23,17 +24,18 @@ class UploadFileView(Resource):
         location="files",
         help=INPUT_FILE_REQUIRED,
     )
-    parser.add_argument("table_name", type=str, required=True, help=TABLE_NAME_REQUIRED)
 
     def post(self):
         args = self.parser.parse_args()
         input_file = args["input_file"]
-        table_name = args["table_name"]
+        table_name = request.form.get("table_name")
         try:
-            file_uploaded = ingest_file_to_db(
-                input_file,
-                table_name,
-            )
+            table_columns: List = []
+            if table_name == "bicycle_hires":
+                table_columns = BICYCLE_HIRE_TABLE_COLUMNS
+            else:
+                table_columns = []
+            file_uploaded = ingest_file_to_db(input_file, table_name, table_columns)
         except Exception as e:
             error_message = {"error_message": f"{INPUT_FILE_ERROR + ' => ' + str(e)}"}
             return make_json_response(error_message, 500)
@@ -42,12 +44,16 @@ class UploadFileView(Resource):
 
 
 class DownloadCleanedDataView(Resource):
-    def get(self, table_name):
+    def get(self):
+        table_name = request.args.get("table_name")
         try:
-            export_file_path = DownloadCleanedDataViewService.export_cleaned_file()
+            export_file_path = DownloadCleanedDataViewService.export_cleaned_file(
+                table_name
+            )
             file_obj = send_file(path_or_file=export_file_path, mimetype="text/csv")
-            delete_created_csv(export_file_path)
-            
+            thread = threading.Thread(target=delete_created_csv(export_file_path))
+            thread.start()
+
         except Exception as e:
             error_message = {
                 "error_message": f"{DOWNLOAD_FILE_ERROR + ' => ' + str(e)}"

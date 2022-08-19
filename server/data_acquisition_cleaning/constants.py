@@ -8,7 +8,9 @@ TABLE_NAME_REQUIRED = "Table name is required."
 UPLOAD_FILE_ENDPOINT = "/upload-file/"
 DOWNLOAD_FILE_ENDPOINT = "/downoad-file/"
 
-FILE_PATH_EXPORT_FILE = "./server/data-files/"
+FILE_PATH_EXPORT_FILE = (
+    "/Users/aggarwalvinay/PycharmProjects/fleet-services/server/data-files/"
+)
 
 # Queries
-DOWNLOAD_CLEANED_FILE_QUERY = """ SELECT * from '{table_name}' """
+DOWNLOAD_CLEANED_FILE_QUERY = """ SELECT * from {table_name} """

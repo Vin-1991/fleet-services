@@ -23,3 +23,7 @@ BICYCLE_HIRE_TABLE_COLUMNS = [
 
 # Queries
 
+FILE_PATH_EXPORT_FILE = "./server/data-files/"
+
+# Queries
+DOWNLOAD_CLEANED_FILE_QUERY = """ SELECT * from '{table_name}' """

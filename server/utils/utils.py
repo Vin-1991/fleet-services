@@ -34,12 +34,7 @@ def make_json_response(response: dict, statuscode: int) -> dict:
 
 
 def ingest_file_to_db(input_file, table_name, table_columns) -> None:
-    with open(
-        input_file,
-        newline="",
-    ) as csvfile:
-        reader = csv.DictReader(csvfile)
-        df = pd.DataFrame(data=reader, columns=table_columns)
+    df = pd.read_csv(input_file)
 
     try:
         with create_connection_sql() as connection:
@@ -50,14 +45,11 @@ def ingest_file_to_db(input_file, table_name, table_columns) -> None:
     return "File uploaded successfully"
 
 
-def delete_created_csv(export_file_path: str)-> None:
+def delete_created_csv(export_file_path: str) -> None:
 
     try:
-        for idx in range(1, 4):
-            time.sleep(3)
+        for idx in range(1):
+            time.sleep(2)
         os.remove(export_file_path)
     except Exception as e:
         return "Cannot delete the file.."
-
-    thread = threading.Thread(target=delete_created_csv)
-    thread.start()
