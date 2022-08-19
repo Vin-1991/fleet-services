@@ -1,4 +1,4 @@
-from bicycle_hires.urls import initialize_bicycle_hires_api_urls
+from data_acquisition_cleaning.urls import initialize_data_acquisition_cleaning_api_urls
 
 
 def initialize_api_routes(api) -> None:
@@ -12,4 +12,4 @@ def initialize_api_routes(api) -> None:
     -------
         None
     """
-    initialize_bicycle_hires_api_urls(api)
+    initialize_data_acquisition_cleaning_api_urls(api)

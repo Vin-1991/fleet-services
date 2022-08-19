@@ -9,7 +9,6 @@ from init_urls import initialize_api_routes
 from repository.db import db
 from utils.db_utils import create_connection_sql
 from utils.utils import make_json_response
-from bicycle_hires.views import run
 
 app = Flask(__name__)
 logging.basicConfig(level=logging.DEBUG)
@@ -24,7 +23,7 @@ db.init_app(app)
 
 with app.app_context():
     create_connection_sql()
-    #run()
+    # run()
 
 
 api = Api(app)
