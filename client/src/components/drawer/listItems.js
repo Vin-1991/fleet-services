@@ -1,6 +1,7 @@
 import * as React from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import PeopleIcon from "@mui/icons-material/People";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
+import DataArraySharp from "@mui/icons-material/DataArraySharp";
 import BarChartIcon from "@mui/icons-material/BarChart";
 
 export const mainListItems = [
@@ -18,13 +19,13 @@ export const mainListItems = [
   },
   {
     text: "Upload data",
-    icon: <PeopleIcon />,
+    icon: <UploadFileIcon />,
     path: "upload",
     id: 3,
   },
   {
     text: "Cleaned data",
-    icon: <PeopleIcon />,
+    icon: <DataArraySharp />,
     path: "cleaned-data",
     id: 4,
   },

@@ -41,8 +41,7 @@ const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   "& .MuiDrawer-paper": {
-    position: "relative",
-    whiteSpace: "nowrap",
+    position: "absolute",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
@@ -66,7 +65,7 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 function DrawerContent() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState(1);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -74,9 +73,17 @@ function DrawerContent() {
 
   return (
     <ThemeProvider theme={mdTheme}>
-      <Box sx={{ display: "flex" }}>
+      <Box
+        sx={{
+          display: "flex",
+          backgroundColor: (theme) =>
+            theme.palette.mode === "light"
+              ? theme.palette.grey[100]
+              : theme.palette.grey[900],
+        }}
+      >
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
+        <AppBar position="relative" open={open}>
           <Toolbar
             sx={{
               pr: "24px", // keep right padding when drawer closed
