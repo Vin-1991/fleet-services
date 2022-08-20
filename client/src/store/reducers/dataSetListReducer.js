@@ -7,7 +7,7 @@ let defaultState = {
   data: [],
 };
 
-const FetchFetchFleetServicesProcessedData = (state = defaultState, action) => {
+const FetchDataSetList = (state = defaultState, action) => {
   switch (action.type) {
     case COMMON_DATA_ACTIONS.COMMON_DATA_FETCH_ON_HOLD:
       return {
@@ -41,4 +41,4 @@ const FetchFetchFleetServicesProcessedData = (state = defaultState, action) => {
   }
 };
 
-export default FetchFetchFleetServicesProcessedData;
+export default FetchDataSetList;

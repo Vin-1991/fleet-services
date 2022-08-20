@@ -15,12 +15,13 @@ import {
 } from "../../store/actions/index";
 
 import DownloadFile from "../download/Download";
+import Select from "../shared/DropDown";
 
 const Upload = (props) => {
   const dispatchStore = useDispatch();
   const [fileName, setFileName] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
-  const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [datasetName, setDatasetName] = useState("");
 
   const handleFileUpload = (event) => {
     const fileDetails = event.target.files[0];
@@ -29,7 +30,7 @@ const Upload = (props) => {
   };
 
   const uploadCSVFileData = () => {
-    props?.uploadFile(selectedFile);
+    props?.uploadFile(selectedFile, datasetName);
   };
 
   useEffect(() => {
@@ -37,7 +38,6 @@ const Upload = (props) => {
       props?.uploadFileReset();
       setSelectedFile(null);
       setFileName("");
-      setUploadSuccess(true);
       dispatchStore(
         showSnackbar({
           message: UPLOAD_FLEET_SERVICES_FILE_CONSTANTS.uploadSuccessMessage,
@@ -58,6 +58,10 @@ const Upload = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props?.uploadedFileData]);
+
+  const onDataSetSelected = (value) => {
+    setDatasetName(value);
+  };
 
   return (
     <Box
@@ -84,11 +88,15 @@ const Upload = (props) => {
                 height: 240,
               }}
             >
+              <Select
+                onValueSelected={(value) => {
+                  onDataSetSelected(value);
+                }}
+              />
               <Button
                 component="label"
                 variant="outlined"
                 startIcon={<UploadFileIcon />}
-                sx={{ marginRight: "1rem" }}
               >
                 Select file (.csv)
                 <input
@@ -113,9 +121,9 @@ const Upload = (props) => {
                   </Button>
                 </Box>
               </Grid>
-              <Grid>
+              {/* <Grid>
                 <Box>{uploadSuccess && <DownloadFile />}</Box>
-              </Grid>
+              </Grid> */}
             </Paper>
           </Grid>
         </Grid>
@@ -132,8 +140,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    uploadFile: (file) => {
-      dispatch(fleetServicesUploadFileAction(file));
+    uploadFile: (file, dataset) => {
+      dispatch(fleetServicesUploadFileAction(file, dataset));
     },
     uploadFileReset: () => {
       dispatch(fleetServicesUploadFileActionReset());

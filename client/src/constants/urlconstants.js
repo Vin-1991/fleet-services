@@ -1,11 +1,13 @@
 const UPLOAD_FLEET_SERVICES_FILE = "/upload-file/";
 const DOWNLOAD_FLEET_SERVICES_FILE = "/download-file/";
 const FLEET_SERVICES_PROCESSED_DATA = "/processed-data/";
+const DATA_SETS_LIST = "/dataset-list/";
 
 const urlConstants = {
   UPLOAD_FLEET_SERVICES_FILE: `${UPLOAD_FLEET_SERVICES_FILE}`,
   DOWNLOAD_FLEET_SERVICES_FILE: `${DOWNLOAD_FLEET_SERVICES_FILE}`,
   FLEET_SERVICES_PROCESSED_DATA: `${FLEET_SERVICES_PROCESSED_DATA}`,
+  DATA_SETS_LIST: `${DATA_SETS_LIST}`,
 };
 
 export default urlConstants;

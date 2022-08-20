@@ -1,4 +1,4 @@
-import { getFleetServicesProcessedData } from "../../api/DataAcquisition";
+import { getDataSetList } from "../../api/DataAcquisition";
 import { COMMON_DATA_ACTIONS } from "../actionTypes/commonDataActionTypes";
 
 export function dataLoading() {
@@ -29,10 +29,10 @@ export function dataNotLoaded() {
   };
 }
 
-export function fetchFleetServicesProcessedDataAction(queryDatasetName) {
+export function fetchDataSetListAction() {
   return (dispatch) => {
     dispatch(dataLoading());
-    getFleetServicesProcessedData(queryDatasetName)
+    getDataSetList()
       .then((response) => {
         dispatch(dataLoaded(response.data));
       })

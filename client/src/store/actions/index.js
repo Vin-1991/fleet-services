@@ -10,6 +10,7 @@ import {
 } from "./downloadFileActions";
 
 import { fetchFleetServicesProcessedDataAction } from "./cleanedDataAction";
+import { fetchDataSetListAction } from "./dataSetListActions";
 
 export {
   fleetServicesUploadFileAction,
@@ -19,4 +20,5 @@ export {
   showSnackbar,
   clearSnackbar,
   fetchFleetServicesProcessedDataAction,
+  fetchDataSetListAction,
 };

@@ -34,10 +34,10 @@ export function dataReset() {
   };
 }
 
-export function fleetServicesUploadFileAction(file) {
+export function fleetServicesUploadFileAction(file, dataset) {
   return (dispatch) => {
     dispatch(dataLoading());
-    fleetServicesUploadFile(file)
+    fleetServicesUploadFile(file, dataset)
       .then(() => {
         dispatch(dataLoaded());
       })

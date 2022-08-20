@@ -35,10 +35,10 @@ export function dataReset() {
   };
 }
 
-export function fleetServicesDownloadFileAction(file) {
+export function fleetServicesDownloadFileAction(queryDatasetName) {
   return (dispatch) => {
     dispatch(dataLoading());
-    fleetServicesDownloadFile(file)
+    fleetServicesDownloadFile(queryDatasetName)
       .then((response) => {
         dispatch(dataLoaded(response.data));
       })

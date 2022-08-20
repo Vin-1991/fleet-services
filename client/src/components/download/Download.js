@@ -64,7 +64,7 @@ const Download = (props) => {
           component="label"
           variant="outlined"
           startIcon={<FileDownload />}
-          onClick={() => props?.downloadFile()}
+          onClick={() => props?.downloadFile(props?.datasetName)}
         >
           Download file
         </Button>
@@ -81,8 +81,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    downloadFile: () => {
-      dispatch(fleetServicesDownloadFileAction());
+    downloadFile: (dataset) => {
+      dispatch(fleetServicesDownloadFileAction(dataset));
     },
     downloadFileReset: () => {
       dispatch(fleetServicesDownloadFileActionReset());

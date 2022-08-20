@@ -13,13 +13,13 @@ from utils.utils import create_timestamp, load_json_response
 
 
 class DownloadCleanedDataViewService:
-    def export_cleaned_file(table_name: str) -> str:
+    def export_cleaned_file(dataset: str) -> str:
 
         df_download_file: pd.DataFrame = run_query_get_df(
-            DOWNLOAD_CLEANED_FILE_QUERY.format(table_name=table_name)
+            DOWNLOAD_CLEANED_FILE_QUERY.format(table_name=dataset)
         )
 
-        file_name: str = f"cleaned_{table_name}_{create_timestamp()}.csv"
+        file_name: str = f"cleaned_{dataset}_{create_timestamp()}.csv"
         file_path: os.PathLike = f"{FILE_PATH_EXPORT_FILE}{file_name}"
 
         isExist: bool = os.path.exists(FILE_PATH_EXPORT_FILE)
@@ -33,9 +33,9 @@ class DownloadCleanedDataViewService:
 
 
 class ProcessedDataService:
-    def get_processed_data(table_name) -> dict:
+    def get_processed_data(dataset) -> dict:
         df_processed_data: pd.DataFrame = run_query_get_df(
-            DOWNLOAD_CLEANED_FILE_QUERY.format(table_name=table_name)
+            DOWNLOAD_CLEANED_FILE_QUERY.format(table_name=dataset)
         )
 
         return load_json_response(df_processed_data.to_json(orient="records"))
