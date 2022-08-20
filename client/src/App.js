@@ -6,12 +6,14 @@ import Dashboard from "./components/dashboard/Dashboard";
 import DataAnalysis from "./components/data-analysis/DataAnalysis";
 import Upload from "./components/upload/Upload";
 import CleanedData from "./components/cleaned-data/Cleaned-Data";
+import Snackbars from "./components/loader/snackBar";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <DrawerPanel />
+        <Snackbars />
         <Routes>
           <Route exact path="/" element={<Dashboard />}></Route>
           <Route path="/analysis" element={<DataAnalysis />}></Route>

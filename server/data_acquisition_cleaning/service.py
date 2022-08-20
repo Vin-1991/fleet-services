@@ -9,7 +9,7 @@ from .constants import FILE_PATH_EXPORT_FILE, DOWNLOAD_CLEANED_FILE_QUERY
 from utils.db_utils import (
     run_query_get_df,
 )
-from utils.utils import create_timestamp
+from utils.utils import create_timestamp, load_json_response
 
 
 class DownloadCleanedDataViewService:
@@ -30,3 +30,12 @@ class DownloadCleanedDataViewService:
         df_download_file.to_csv(file_path, index=False)
 
         return file_path
+
+
+class ProcessedDataService:
+    def get_processed_data(table_name) -> dict:
+        df_processed_data: pd.DataFrame = run_query_get_df(
+            DOWNLOAD_CLEANED_FILE_QUERY.format(table_name=table_name)
+        )
+
+        return load_json_response(df_processed_data.to_json(orient="records"))

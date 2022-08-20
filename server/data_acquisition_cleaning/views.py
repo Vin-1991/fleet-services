@@ -9,8 +9,9 @@ from .constants import (
     INPUT_FILE_REQUIRED,
     INPUT_FILE_ERROR,
     DOWNLOAD_FILE_ERROR,
+    PROCESSED_DATA_ERROR,
 )
-from .service import DownloadCleanedDataViewService
+from .service import DownloadCleanedDataViewService, ProcessedDataService
 from bicycle_hires.constants import BICYCLE_HIRE_TABLE_COLUMNS
 from utils.utils import make_json_response, ingest_file_to_db, delete_created_csv
 
@@ -28,7 +29,7 @@ class UploadFileView(Resource):
     def post(self):
         args = self.parser.parse_args()
         input_file = args["input_file"]
-        table_name = request.form.get("table_name")
+        table_name = request.form.get("table_name", "bicycle_hires")
         try:
             table_columns: List = []
             if table_name == "bicycle_hires":
@@ -45,7 +46,7 @@ class UploadFileView(Resource):
 
 class DownloadCleanedDataView(Resource):
     def get(self):
-        table_name = request.args.get("table_name")
+        table_name = request.args.get("table_name", "bicycle_hires")
         try:
             export_file_path = DownloadCleanedDataViewService.export_cleaned_file(
                 table_name
@@ -61,3 +62,18 @@ class DownloadCleanedDataView(Resource):
             return make_json_response(error_message, 500)
 
         return file_obj
+
+
+class ProcessedDataView(Resource):
+    def get(self):
+        table_name = request.args.get("table_name", "bicycle_hires")
+        try:
+            processed_data = ProcessedDataService.get_processed_data(table_name)
+
+        except Exception as e:
+            error_message = {
+                "error_message": f"{PROCESSED_DATA_ERROR + ' => ' + str(e)}"
+            }
+            return make_json_response(error_message, 500)
+
+        return processed_data

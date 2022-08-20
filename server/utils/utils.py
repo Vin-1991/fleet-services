@@ -1,7 +1,6 @@
-import csv
 import time
 import os
-import threading
+import json
 import pandas as pd
 from datetime import datetime
 from flask import jsonify, make_response
@@ -31,6 +30,23 @@ def make_json_response(response: dict, statuscode: int) -> dict:
 
     """
     return make_response(jsonify(response), statuscode)
+
+
+def load_json_response(response: dict) -> dict:
+    """
+    This method converts a response into json response.
+    Parameters
+    ----------
+        response : dict
+            response in the form dictionary
+
+    Returns
+    -------
+        json_loads : dict
+            returns a converted json response.
+
+    """
+    return json.loads(response)
 
 
 def ingest_file_to_db(input_file, table_name, table_columns) -> None:
