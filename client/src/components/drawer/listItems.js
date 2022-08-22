@@ -9,25 +9,25 @@ export const mainListItems = [
   {
     text: "Upload data",
     icon: <UploadFileTwoToneIcon />,
-    path: "upload",
+    path: "/",
     id: 1,
   },
   {
     text: "Cleaned data",
     icon: <ViewListTwoToneIcon />,
-    path: "cleaned-data",
+    path: "processed-data",
     id: 2,
   },
   {
     text: "Dashboard",
     icon: <DashboardTwoToneIcon />,
-    path: "/",
+    path: "dashboard",
     id: 3,
   },
   {
-    text: "Analysis Reports",
+    text: "Stations Map",
     icon: <MapTwoToneIcon />,
-    path: "analysis",
+    path: "stations",
     id: 4,
   },
 ];

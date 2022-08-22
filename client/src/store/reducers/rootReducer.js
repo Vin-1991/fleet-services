@@ -7,6 +7,7 @@ import dataSetList from "./dataSetListReducer";
 import popularStationsChartData from "./popularStationChartDataReducer";
 import stationsTurnOverChartData from "./stationsTurnOverChartReducer";
 import distributionBikeRentalDurationChartData from "./distributionBikeRentalDurationChartReducer";
+import stationsMapOverChartData from "./stationsMapChartDataReducer";
 
 const rootReducer = combineReducers({
   uploadedFileData,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   popularStationsChartData,
   stationsTurnOverChartData,
   distributionBikeRentalDurationChartData,
+  stationsMapOverChartData,
 });
 
 export default rootReducer;

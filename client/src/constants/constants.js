@@ -17,4 +17,6 @@ export const PROCESSED_DATA_CONSTANTS = {
 
 export const CHART_DATA_CONSTANTS = {
   chartDataLoaderMessage: "Please wait while the chart data is being loaded.",
+  mapChartDataLoaderMessage:
+    "Please wait while the stations map data is being loaded.",
 };

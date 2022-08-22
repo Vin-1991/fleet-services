@@ -69,6 +69,7 @@ function ClusteredChart(props) {
 
       series.appear();
     }
+
     for (const idx in data) {
       Object.entries(data[idx]).forEach(([k, v]) => {
         if (k !== "week_day") {
