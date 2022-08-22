@@ -8,6 +8,8 @@ import {
   fetchFleetServicesProcessedDataAction,
   fetchDataSetListAction,
 } from "../../store/actions/index";
+import Loader from "../loader/loader";
+import { PROCESSED_DATA_CONSTANTS } from "../../constants/constants";
 
 const CleanedData = (props) => {
   const loadProcessedData = () => {
@@ -27,6 +29,9 @@ const CleanedData = (props) => {
         mb: 4,
       }}
     >
+      {props?.processedData?.pending && (
+        <Loader loading message={PROCESSED_DATA_CONSTANTS.dataLoaderMessage} />
+      )}
       <Container maxWidth="xl" sx={{ mt: 5, mb: 5 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={12} lg={12}>

@@ -1,4 +1,4 @@
-import { DATA_ACTIONS } from "../actionTypes/dataSetListActionTypes";
+import { STATIONS_TURNOVER_CHART_DATA_ACTIONS } from "../actionTypes/stationsTurnOverChartActionTypes";
 
 let defaultState = {
   pending: false,
@@ -7,9 +7,9 @@ let defaultState = {
   data: [],
 };
 
-const FetchDataSetList = (state = defaultState, action) => {
+const FetchStationsTurnOverChartData = (state = defaultState, action) => {
   switch (action.type) {
-    case DATA_ACTIONS.DATA_FETCH_ON_HOLD:
+    case STATIONS_TURNOVER_CHART_DATA_ACTIONS.STATIONS_TURNOVER_CHART_DATA_FETCH_ON_HOLD:
       return {
         ...state,
         successful: false,
@@ -18,7 +18,7 @@ const FetchDataSetList = (state = defaultState, action) => {
         data: [],
       };
 
-    case DATA_ACTIONS.DATA_FETCH_FAILED:
+    case STATIONS_TURNOVER_CHART_DATA_ACTIONS.STATIONS_TURNOVER_CHART_DATA_FETCH_FAILED:
       return {
         ...state,
         pending: false,
@@ -27,7 +27,7 @@ const FetchDataSetList = (state = defaultState, action) => {
         data: [],
       };
 
-    case DATA_ACTIONS.DATA_FETCH_SUCCESS:
+    case STATIONS_TURNOVER_CHART_DATA_ACTIONS.STATIONS_TURNOVER_CHART_DATA_FETCH_SUCCESS:
       return {
         ...state,
         pending: false,
@@ -41,4 +41,4 @@ const FetchDataSetList = (state = defaultState, action) => {
   }
 };
 
-export default FetchDataSetList;
+export default FetchStationsTurnOverChartData;

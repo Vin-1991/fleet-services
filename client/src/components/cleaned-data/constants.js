@@ -46,6 +46,74 @@ export const BICYCLE_HIRES_HEAD_CELLS = [
   },
 ];
 
+export const BICYCLE_STATIONS_HEAD_CELLS = [
+  {
+    id: "id",
+    disablePadding: true,
+    label: "Id",
+  },
+  {
+    id: "install_date",
+    disablePadding: false,
+    label: "install_date",
+  },
+  {
+    id: "installed",
+    disablePadding: false,
+    label: "installed",
+  },
+  {
+    id: "latitude",
+    disablePadding: false,
+    label: "latitude",
+  },
+  {
+    id: "locked",
+    disablePadding: false,
+    label: "locked",
+  },
+  {
+    id: "longitude",
+    disablePadding: false,
+    label: "longitude",
+  },
+  {
+    id: "name",
+    disablePadding: false,
+    label: "name",
+  },
+  {
+    id: "bikes_count",
+    disablePadding: false,
+    label: "bikes_count",
+  },
+  {
+    id: "docks_count",
+    disablePadding: false,
+    label: "docks_count",
+  },
+  {
+    id: "nbEmptyDocks",
+    disablePadding: false,
+    label: "nbEmptyDocks",
+  },
+  {
+    id: "removal_date",
+    disablePadding: false,
+    label: "removal_date",
+  },
+  {
+    id: "temporary",
+    disablePadding: false,
+    label: "temporary",
+  },
+  {
+    id: "terminal_name",
+    disablePadding: false,
+    label: "terminal_name",
+  },
+];
+
 export const DATASETS = [
   { key: "bicycle_hires", label: "Bicycle Hire" },
   { key: "bicycle_stations", label: "Bicycle Stations" },

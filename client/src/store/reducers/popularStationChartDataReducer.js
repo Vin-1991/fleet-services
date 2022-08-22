@@ -1,4 +1,4 @@
-import { DATA_ACTIONS } from "../actionTypes/dataSetListActionTypes";
+import { POPUALR_STATIONS_CHART_DATA_ACTIONS } from "../actionTypes/popularStationsChartActionTypes";
 
 let defaultState = {
   pending: false,
@@ -7,9 +7,9 @@ let defaultState = {
   data: [],
 };
 
-const FetchDataSetList = (state = defaultState, action) => {
+const FetchPopularStationsChartData = (state = defaultState, action) => {
   switch (action.type) {
-    case DATA_ACTIONS.DATA_FETCH_ON_HOLD:
+    case POPUALR_STATIONS_CHART_DATA_ACTIONS.POPUALR_STATIONS_CHART_DATA_FETCH_ON_HOLD:
       return {
         ...state,
         successful: false,
@@ -18,7 +18,7 @@ const FetchDataSetList = (state = defaultState, action) => {
         data: [],
       };
 
-    case DATA_ACTIONS.DATA_FETCH_FAILED:
+    case POPUALR_STATIONS_CHART_DATA_ACTIONS.POPUALR_STATIONS_CHART_DATA_FETCH_FAILED:
       return {
         ...state,
         pending: false,
@@ -27,7 +27,7 @@ const FetchDataSetList = (state = defaultState, action) => {
         data: [],
       };
 
-    case DATA_ACTIONS.DATA_FETCH_SUCCESS:
+    case POPUALR_STATIONS_CHART_DATA_ACTIONS.POPUALR_STATIONS_CHART_DATA_FETCH_SUCCESS:
       return {
         ...state,
         pending: false,
@@ -41,4 +41,4 @@ const FetchDataSetList = (state = defaultState, action) => {
   }
 };
 
-export default FetchDataSetList;
+export default FetchPopularStationsChartData;

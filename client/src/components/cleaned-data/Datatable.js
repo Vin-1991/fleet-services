@@ -1,6 +1,4 @@
 import { useState } from "react";
-
-import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -14,7 +12,10 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import { visuallyHidden } from "@mui/utils";
-import { BICYCLE_HIRES_HEAD_CELLS } from "./constants";
+import {
+  BICYCLE_HIRES_HEAD_CELLS,
+  BICYCLE_STATIONS_HEAD_CELLS,
+} from "./constants";
 import Select from "../shared/DropDown";
 import DownloadData from "../../components/download/Download";
 
@@ -47,16 +48,24 @@ function stableSort(array, comparator) {
 }
 
 function DataTableHead(props) {
-  const { order, orderBy, onRequestSort } = props;
+  let columns = [];
+  const { order, orderBy, onRequestSort, datasetName } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
+  let setName = datasetName;
+  if (!setName) setName = "bicycle_hires";
+  if (setName === "bicycle_hires") {
+    columns = BICYCLE_HIRES_HEAD_CELLS;
+  } else {
+    columns = BICYCLE_STATIONS_HEAD_CELLS;
+  }
 
   return (
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox"></TableCell>
-        {BICYCLE_HIRES_HEAD_CELLS.map((headCell) => (
+        {columns.map((headCell) => (
           <TableCell
             key={headCell.id}
             padding={headCell.disablePadding ? "none" : "normal"}
@@ -81,11 +90,25 @@ function DataTableHead(props) {
   );
 }
 
-DataTableHead.propTypes = {
-  onRequestSort: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(["asc", "desc"]).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
+const DataTableToolbar = () => {
+  return (
+    <Toolbar
+      sx={{
+        pl: { sm: 2 },
+        pr: { xs: 1, sm: 1 },
+        backgroundColor: "#0000000d",
+      }}
+    >
+      <Typography
+        sx={{ flex: "1 1 100%" }}
+        variant="h6"
+        id="tableTitle"
+        component="div"
+      >
+        Cleaned data
+      </Typography>
+    </Toolbar>
+  );
 };
 
 const DataTable = (props) => {
@@ -115,39 +138,16 @@ const DataTable = (props) => {
     setDatasetName(value);
   };
 
-  const DataTableToolbar = () => {
-    return (
-      <Toolbar
-        sx={{
-          pl: { sm: 2 },
-          pr: { xs: 1, sm: 1 },
-          backgroundColor: "#0000000d",
-        }}
-      >
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          Cleaned data
-        </Typography>
-      </Toolbar>
-    );
-  };
-
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
         <DownloadData datasetName={datasetName} />
-
         <Select
           dataSetList={props?.dataSetList}
           onValueSelected={(value) => {
             onDataSetSelected(value);
           }}
         />
-
         <DataTableToolbar></DataTableToolbar>
         <TableContainer sx={{ height: 600, overflowX: "auto" }}>
           <Table
@@ -160,26 +160,19 @@ const DataTable = (props) => {
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
               rowCount={props?.processedData.length}
+              datasetName={datasetName}
             />
             <TableBody>
               {stableSort(props?.processedData, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  return (
-                    <TableRow hover key={index}>
-                      <TableCell padding="checkbox"></TableCell>
-                      <TableCell>{row.rental_id}</TableCell>
-                      <TableCell>{row.duration}</TableCell>
-                      <TableCell>{row.bike_id}</TableCell>
-                      <TableCell>{row.end_date}</TableCell>
-                      <TableCell>{row.end_station_id}</TableCell>
-                      <TableCell>{row.end_station_name}</TableCell>
-                      <TableCell>{row.start_date}</TableCell>
-                      <TableCell>{row.start_station_id}</TableCell>
-                      <TableCell>{row.start_station_name}</TableCell>
-                    </TableRow>
-                  );
-                })}
+                .map((row, index) => (
+                  <TableRow hover key={index}>
+                    <TableCell padding="checkbox"></TableCell>
+                    {Object.keys(props?.processedData[0]).map((label) => (
+                      <TableCell>{row[label]}</TableCell>
+                    ))}
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>

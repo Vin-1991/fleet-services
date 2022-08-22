@@ -11,6 +11,9 @@ import {
 
 import { fetchFleetServicesProcessedDataAction } from "./cleanedDataAction";
 import { fetchDataSetListAction } from "./dataSetListActions";
+import { fetchPopularStationsChartDataAction } from "./popularStationsChartActions";
+import { fetchStationsTurnOverChartDataAction } from "./stationsTurnOverChartActions";
+import { fetchDistributionBikeRentalDurationChartDataAction } from "./distributionBikeRentalDurationChartActions";
 
 export {
   fleetServicesUploadFileAction,
@@ -21,4 +24,7 @@ export {
   clearSnackbar,
   fetchFleetServicesProcessedDataAction,
   fetchDataSetListAction,
+  fetchPopularStationsChartDataAction,
+  fetchStationsTurnOverChartDataAction,
+  fetchDistributionBikeRentalDurationChartDataAction,
 };

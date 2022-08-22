@@ -1,4 +1,4 @@
-import { COMMON_DATA_ACTIONS } from "../actionTypes/commonDataActionTypes";
+import { PROCESSED_DATA_ACTIONS } from "../actionTypes/cleanedDataActionTypes";
 
 let defaultState = {
   pending: false,
@@ -9,7 +9,7 @@ let defaultState = {
 
 const FetchFetchFleetServicesProcessedData = (state = defaultState, action) => {
   switch (action.type) {
-    case COMMON_DATA_ACTIONS.COMMON_DATA_FETCH_ON_HOLD:
+    case PROCESSED_DATA_ACTIONS.PROCESSED_DATA_FETCH_ON_HOLD:
       return {
         ...state,
         successful: false,
@@ -18,7 +18,7 @@ const FetchFetchFleetServicesProcessedData = (state = defaultState, action) => {
         data: [],
       };
 
-    case COMMON_DATA_ACTIONS.COMMON_DATA_FETCH_FAILED:
+    case PROCESSED_DATA_ACTIONS.PROCESSED_DATA_FETCH_FAILED:
       return {
         ...state,
         pending: false,
@@ -27,7 +27,7 @@ const FetchFetchFleetServicesProcessedData = (state = defaultState, action) => {
         data: [],
       };
 
-    case COMMON_DATA_ACTIONS.COMMON_DATA_FETCH_SUCCESS:
+    case PROCESSED_DATA_ACTIONS.PROCESSED_DATA_FETCH_SUCCESS:
       return {
         ...state,
         pending: false,

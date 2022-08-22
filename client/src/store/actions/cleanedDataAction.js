@@ -1,9 +1,9 @@
 import { getFleetServicesProcessedData } from "../../api/DataAcquisition";
-import { COMMON_DATA_ACTIONS } from "../actionTypes/commonDataActionTypes";
+import { PROCESSED_DATA_ACTIONS } from "../actionTypes/cleanedDataActionTypes";
 
 export function dataLoading() {
   return {
-    type: COMMON_DATA_ACTIONS.COMMON_DATA_FETCH_ON_HOLD,
+    type: PROCESSED_DATA_ACTIONS.PROCESSED_DATA_FETCH_ON_HOLD,
     payload: {
       pending: true,
     },
@@ -12,7 +12,7 @@ export function dataLoading() {
 
 export function dataLoaded(data) {
   return {
-    type: COMMON_DATA_ACTIONS.COMMON_DATA_FETCH_SUCCESS,
+    type: PROCESSED_DATA_ACTIONS.PROCESSED_DATA_FETCH_SUCCESS,
     payload: {
       successful: true,
       data: data,
@@ -22,7 +22,7 @@ export function dataLoaded(data) {
 
 export function dataNotLoaded() {
   return {
-    type: COMMON_DATA_ACTIONS.COMMON_DATA_FETCH_FAILED,
+    type: PROCESSED_DATA_ACTIONS.PROCESSED_DATA_FETCH_FAILED,
     payload: {
       rejected: true,
     },

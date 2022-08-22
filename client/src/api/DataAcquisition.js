@@ -9,6 +9,7 @@ const {
   DOWNLOAD_FLEET_SERVICES_FILE,
   FLEET_SERVICES_PROCESSED_DATA,
   DATA_SETS_LIST,
+  POPULAR_STATIONS_CHART_DATA,
 } = urlConstants;
 
 export const fleetServicesUploadFile = async (file, dataset) => {
@@ -40,5 +41,11 @@ export const getFleetServicesProcessedData = async (queryDatasetName) => {
 export const getDataSetList = async () => {
   return httpMethods.get(
     `${config.properties.FLEET_SERVICES_BASE_URL}${DATA_SETS_LIST}`
+  );
+};
+
+export const getPopularStationsChartData = async () => {
+  return httpMethods.get(
+    `${config.properties.FLEET_SERVICES_BASE_URL}${POPULAR_STATIONS_CHART_DATA}`
   );
 };

@@ -14,7 +14,6 @@ import {
   fleetServicesUploadFileActionReset,
 } from "../../store/actions/index";
 
-import DownloadFile from "../download/Download";
 import Select from "../shared/DropDown";
 
 const Upload = (props) => {

@@ -15,10 +15,47 @@ FILE_PATH_EXPORT_FILE = (
     "/Users/aggarwalvinay/PycharmProjects/fleet-services/server/data-files/"
 )
 
-DATASETS = [
-    "Bicycle Hire",
-    "Bicycle Stations",
+DATASETS = {
+    1: "Bicycle Hire",
+    2: "Bicycle Stations",
+}
+
+BICYCLE_HIRES_MANDATORY_COLUMNS = [
+    "rental_id",
+    "bike_id",
+    "end_station_id",
+    "start_station_id",
 ]
+BICYCLE_STATIONS_MANDATORY_COLUMNS = ["id"]
+
+DATASET_COLUMNS_BICYCLE_HIRES_TYPE_MAPPING = {
+    "rental_id": "int",
+    "duration": "int",
+    "bike_id": "int",
+    "end_date": "timestamp",
+    "end_station_id": "int",
+    "end_station_name": "str",
+    "start_date": "timestamp",
+    "start_station_id": "int",
+    "start_station_name": "str",
+}
+
+
+DATASET_COLUMNS_BICYCLE_STATIONS_TYPE_MAPPING = {
+    "id": "int",
+    "install_date": "date",
+    "installed": "bool",
+    "latitude": "float",
+    "locked": "bool",
+    "longitude": "float",
+    "name": "str",
+    "bikes_count": "int",
+    "docks_count": "int",
+    "nbEmptyDocks": "int",
+    "removal_date": "date",
+    "temporary": "bool",
+    "terminal_name": "int",
+}
 
 
 # Queries
