@@ -12,6 +12,7 @@ TABLE_NAME_REQUIRED = "Table name is required."
 TOP_TEN_POPULAR_STATIONS_ENDPOINT = "/popular-stations/"
 STATIONS_MOST_TURNOVER_RATE_ENDPOINT = "/stations-most-turnover/"
 DISTRIBUTION_BIKE_RENTAL_DURATION_ENDPOINT = "/rental-distribution/"
+STATIONS_MAP_DATA_ENDPOINT = "/stations-map-data/"
 
 
 # Queries
@@ -56,3 +57,7 @@ STATION_TURN_OVER_RATE_QUERY = """
              ORDER BY  c.avg_trip_duration_minutes asc,c.number_of_trips asc
              fetch first {number_of_rows} rows only
 """
+
+
+STATION_MAP_DATA_QUERY = """ SELECT terminal_name as terminal_id, name as terminal_name, 
+                            latitude,longitude from bicycle_stations"""

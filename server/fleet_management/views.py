@@ -6,12 +6,13 @@ from flask_restful import Resource, reqparse
 from fleet_management.constants import (
     POPULAR_STATION_DATA_ERROR,
     STATIONS_MOST_TURNOVER_RATE_DATA_ERROR,
-    DISTRIBUTION_BIKE_RENTAL_DURATION_DATA_ERROR
+    DISTRIBUTION_BIKE_RENTAL_DURATION_DATA_ERROR,
 )
 from fleet_management.service import (
     MostPopularStationsService,
     StationsMostTurnOverRateService,
     DistributionBikeRentalDurationService,
+    StationsMpaDataService,
 )
 from utils.utils import make_json_response
 
@@ -61,3 +62,18 @@ class DistributionBikeRentalDurationView(Resource):
             return make_json_response(error_message, 500)
 
         return make_json_response(distribution_data, 200)
+
+
+class StationsMapDataView(Resource):
+    def get(self):
+        try:
+            stations_turnover_data: List[
+                dict
+            ] = StationsMpaDataService.prepare_stations_map_data()
+        except Exception as e:
+            error_message: dict = {
+                "error_message": f"{STATIONS_MOST_TURNOVER_RATE_DATA_ERROR + ' => ' + str(e)}"
+            }
+            return make_json_response(error_message, 500)
+
+        return make_json_response(stations_turnover_data, 200)

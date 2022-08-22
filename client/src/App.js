@@ -7,6 +7,7 @@ import DataAnalysis from "./components/data-analysis/DataAnalysis";
 import Upload from "./components/upload/Upload";
 import CleanedData from "./components/cleaned-data/Cleaned-Data";
 import Snackbars from "./components/loader/snackBar";
+import MapChart from "./components/stationMap/MapChart";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <Snackbars />
         <Routes>
           <Route exact path="/" element={<Dashboard />}></Route>
-          <Route path="/analysis" element={<DataAnalysis />}></Route>
+          <Route path="/analysis" element={<MapChart />}></Route>
           <Route path="/upload" element={<Upload />}></Route>
           <Route path="/cleaned-data" element={<CleanedData />}></Route>
         </Routes>

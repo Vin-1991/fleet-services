@@ -108,7 +108,7 @@ function DrawerContent() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              Bicycle Fleet Management Services Tool
             </Typography>
           </Toolbar>
         </AppBar>

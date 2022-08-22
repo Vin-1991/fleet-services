@@ -6,6 +6,7 @@ from typing import List
 from fleet_management.constants import (
     MOST_POPULAR_STATIONS_QUERY,
     STATION_TURN_OVER_RATE_QUERY,
+    STATION_MAP_DATA_QUERY,
 )
 from utils.db_utils import (
     run_query_get_df,
@@ -68,3 +69,10 @@ class DistributionBikeRentalDurationService:
             ]
 
         return distribution_data
+
+
+class StationsMpaDataService:
+    def prepare_stations_map_data() -> dict:
+
+        df_stations_map_data: pd.DataFrame = run_query_get_df(STATION_MAP_DATA_QUERY)
+        return load_json_response(df_stations_map_data.to_json(orient="records"))

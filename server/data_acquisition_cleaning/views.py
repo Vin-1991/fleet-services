@@ -59,8 +59,6 @@ class DownloadCleanedDataView(Resource):
     def get(self):
         dataset: str = request.args.get("dataset")
         try:
-            if dataset == "":
-                dataset = "bicycle_hires"
             export_file_path: str = DownloadCleanedDataViewService.export_cleaned_file(
                 get_dataset_name(dataset)
             )
@@ -81,8 +79,6 @@ class ProcessedDataView(Resource):
     def get(self):
         dataset: str = request.args.get("dataset")
         try:
-            if dataset == "":
-                dataset = "1"
             processed_data: dict = ProcessedDataService.get_processed_data(
                 get_dataset_name(dataset)
             )
