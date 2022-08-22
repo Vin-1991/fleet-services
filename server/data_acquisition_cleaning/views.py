@@ -19,9 +19,10 @@ from .service import (
 )
 from utils.utils import (
     make_json_response,
-    ingest_file_to_db,
+    read_file,
     delete_created_csv,
     get_dataset_name,
+    ingest_data_to_db,
 )
 
 
@@ -40,15 +41,18 @@ class UploadFileView(Resource):
         input_file = args["input_file"]
         dataset: str = request.form.get("dataset")
         try:
-            file_uploaded, df = ingest_file_to_db(input_file, get_dataset_name(dataset))
-            DataMassagingService.massage_cleanse_data(df, dataset)
+            df = read_file(input_file)
+            processed_df = DataMassagingService.massage_cleanse_data(df, int(dataset))
+            ingest_data_to_db(processed_df, get_dataset_name(dataset))
         except Exception as e:
             error_message: dict = {
                 "error_message": f"{INPUT_FILE_ERROR + ' => ' + str(e)}"
             }
             return make_json_response(error_message, 500)
 
-        return make_json_response({"message": file_uploaded}, 200)
+        return make_json_response(
+            {"message": "File cleaned, massaged and uploaded successfully"}, 200
+        )
 
 
 class DownloadCleanedDataView(Resource):
@@ -78,7 +82,7 @@ class ProcessedDataView(Resource):
         dataset: str = request.args.get("dataset")
         try:
             if dataset == "":
-                dataset = "bicycle_hires"
+                dataset = "1"
             processed_data: dict = ProcessedDataService.get_processed_data(
                 get_dataset_name(dataset)
             )

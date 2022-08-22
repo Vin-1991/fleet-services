@@ -16,8 +16,8 @@ FILE_PATH_EXPORT_FILE = (
 )
 
 DATASETS = {
-    1: "Bicycle Hire",
-    2: "Bicycle Stations",
+    1: "bicycle_hires",
+    2: "bicycle_stations",
 }
 
 BICYCLE_HIRES_MANDATORY_COLUMNS = [
@@ -43,7 +43,6 @@ DATASET_COLUMNS_BICYCLE_HIRES_TYPE_MAPPING = {
 
 DATASET_COLUMNS_BICYCLE_STATIONS_TYPE_MAPPING = {
     "id": "int",
-    "install_date": "date",
     "installed": "bool",
     "latitude": "float",
     "locked": "bool",
@@ -52,7 +51,6 @@ DATASET_COLUMNS_BICYCLE_STATIONS_TYPE_MAPPING = {
     "bikes_count": "int",
     "docks_count": "int",
     "nbEmptyDocks": "int",
-    "removal_date": "date",
     "temporary": "bool",
     "terminal_name": "int",
 }

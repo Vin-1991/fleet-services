@@ -5,7 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 const DropDown = (props) => {
-  const [dataSet, setDataSet] = React.useState("bicycle_hires");
+  const [dataSet, setDataSet] = React.useState(1);
 
   const handleChange = (event) => {
     const value = event.target.value;
@@ -23,8 +23,8 @@ const DropDown = (props) => {
         label="Dataset"
         onChange={handleChange}
       >
-        <MenuItem value={"bicycle_hires"}>Bicycle Hire</MenuItem>
-        <MenuItem value={"bicycle_stations"}>Bicycle Stations</MenuItem>
+        <MenuItem value={1}>Bicycle Hire</MenuItem>
+        <MenuItem value={2}>Bicycle Stations</MenuItem>
       </Select>
     </FormControl>
   );

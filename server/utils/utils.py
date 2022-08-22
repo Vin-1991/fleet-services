@@ -6,11 +6,8 @@ from datetime import datetime
 from flask import jsonify, make_response
 
 from utils.db_utils import create_connection_sql
-from utils.constants import UPLOAD_FILE_ERROR
-from data_acquisition_cleaning.constants import (
-    DATASET_COLUMNS_BICYCLE_HIRES_TYPE_MAPPING,
-    DATASETS
-)
+from utils.constants import FILE_READ_ERROR
+from data_acquisition_cleaning.constants import DATASETS
 
 
 def create_timestamp():
@@ -53,19 +50,17 @@ def load_json_response(response: dict) -> dict:
     return json.loads(response)
 
 
-def ingest_file_to_db(input_file, table_name) -> None:
-    df = pd.read_csv(
-        input_file,
-        escapechar="\\",
-    )
-    try:
-        pass
-        # with create_connection_sql() as connection:
-        #     df.to_sql(table_name, con=connection, index=False, if_exists="replace")
-    except Exception as e:
-        return UPLOAD_FILE_ERROR
+def read_file(input_file) -> None:
 
-    return "File uploaded successfully", df
+    try:
+        df = pd.read_csv(
+            input_file,
+            escapechar="\\",
+        )
+    except Exception as e:
+        return FILE_READ_ERROR
+
+    return df
 
 
 def delete_created_csv(export_file_path: str) -> None:
@@ -77,6 +72,17 @@ def delete_created_csv(export_file_path: str) -> None:
     except Exception as e:
         return "Cannot delete the file.."
 
-def get_dataset_name(dataset_id:int)->str:
 
+def get_dataset_name(dataset_id: int) -> str:
+    dataset_id = int(dataset_id)
     return DATASETS[dataset_id]
+
+
+def ingest_data_to_db(df, table_name):
+    try:
+        with create_connection_sql() as connection:
+            df.to_sql(table_name, con=connection, index=False, if_exists="replace")
+
+    except Exception as e:
+        return "Something went worng while ingesting the data in db."
+    return "Success"

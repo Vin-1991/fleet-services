@@ -49,16 +49,20 @@ class ProcessedDataService:
 
 
 class DataMassagingService:
-    def massage_cleanse_data(df, dataset) -> None:
+    @classmethod
+    def massage_cleanse_data(cls, df: pd.DataFrame, dataset: int) -> None:
+        dataset_details: dict = cls.get_dataset_related_details(dataset)
         # check if there are null values in mandatory columns
-        df = df.dropna(how="any", subset=BICYCLE_HIRES_MANDATORY_COLUMNS)
+        df = df.dropna(how="any", subset=dataset_details["mandatory_columns"])
 
         # check if there are duplicate rows and mark unique identifier
-        if not df["rental_id"].is_unique:
-            df = df.drop_duplicates(subset=["rental_id"], keep="first")
+        if not df[dataset_details["unique_column"]].is_unique:
+            df = df.drop_duplicates(
+                subset=[dataset_details["unique_column"]], keep="first"
+            )
 
         # set the dtype for columns
-        dataset_columns_list: dict = DATASET_COLUMNS_BICYCLE_HIRES_TYPE_MAPPING
+        dataset_columns_list: dict = dataset_details["dataset_column_mappings"]
         for type in dataset_columns_list:
             if dataset_columns_list[type] == "int":
                 df[type] = pd.to_numeric(df[type], errors="coerce")
@@ -69,8 +73,26 @@ class DataMassagingService:
             elif dataset_columns_list[type] == "str":
                 df[type] = df[type].astype("category")
             elif dataset_columns_list[type] == "timestamp":
-                df[type] = pd.to_datetime(
-                    df[type], format="%Y-%m-%d %H:%M:%S", errors="coerce"
-                )
+                df[type] = pd.to_datetime(df[type], errors="coerce")
+                df = df.dropna()
             elif dataset_columns_list[type] == "date":
-                df[type] = pd.to_datetime(df[type], format="%Y-%m-%d", errors="coerce")
+                df[type] = pd.to_datetime(df[type], errors="coerce")
+
+        return df
+
+    def get_dataset_related_details(dataset: int) -> dict:
+        store_details: dict = {}
+        if dataset == 1:
+            store_details = {
+                "mandatory_columns": BICYCLE_HIRES_MANDATORY_COLUMNS,
+                "unique_column": "rental_id",
+                "dataset_column_mappings": DATASET_COLUMNS_BICYCLE_HIRES_TYPE_MAPPING,
+            }
+        elif dataset == 2:
+            store_details = {
+                "mandatory_columns": BICYCLE_STATIONS_MANDATORY_COLUMNS,
+                "unique_column": "id",
+                "dataset_column_mappings": DATASET_COLUMNS_BICYCLE_STATIONS_TYPE_MAPPING,
+            }
+
+        return store_details

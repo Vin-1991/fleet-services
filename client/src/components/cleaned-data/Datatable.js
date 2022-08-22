@@ -54,8 +54,8 @@ function DataTableHead(props) {
     onRequestSort(event, property);
   };
   let setName = datasetName;
-  if (!setName) setName = "bicycle_hires";
-  if (setName === "bicycle_hires") {
+  if (!setName) setName = 1;
+  if (setName === 1) {
     columns = BICYCLE_HIRES_HEAD_CELLS;
   } else {
     columns = BICYCLE_STATIONS_HEAD_CELLS;
