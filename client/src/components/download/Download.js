@@ -4,6 +4,7 @@ import { Button, Box } from "@mui/material";
 import { connect, useDispatch } from "react-redux";
 import FileDownload from "@mui/icons-material/FileDownload";
 import Loader from "../loader/loader";
+import { newDate } from "../../utils/utils";
 import { DOWNLOAD_FLEET_SERVICES_FILE_CONSTANTS } from "../../constants/constants";
 import {
   showSnackbar,
@@ -21,13 +22,10 @@ const Download = (props) => {
       );
       const link = document.createElement("a");
       link.href = url;
-      // const newDate = new Date()
-      //   .toISOString()
-      //   .replace("T", "_")
-      //   .substring(0, 19)
-      //   .replace(":", "-")
-      //   .replaceAt(16, "-");
-      link.setAttribute("download", `cleaned.csv`);
+      link.setAttribute(
+        "download",
+        `processed_${props?.datasetName}_${newDate}.csv`
+      );
       document.body.appendChild(link);
       link.click();
       dispatchStore(
@@ -64,6 +62,7 @@ const Download = (props) => {
           component="label"
           variant="outlined"
           startIcon={<FileDownload />}
+          disabled={!props?.datasetName}
           onClick={() => props?.downloadFile(props?.datasetName)}
         >
           Download file

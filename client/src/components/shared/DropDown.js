@@ -5,7 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 const DropDown = (props) => {
-  const [dataSet, setDataSet] = React.useState(1);
+  const [dataSet, setDataSet] = React.useState("");
 
   const handleChange = (event) => {
     const value = event.target.value;
@@ -14,7 +14,7 @@ const DropDown = (props) => {
   };
 
   return (
-    <FormControl sx={{ m: 1, width: 300 }} size="small">
+    <FormControl sx={{ width: 300 }} size="small">
       <InputLabel id="demo-simple-select-label">Dataset</InputLabel>
       <Select
         labelId="demo-simple-select-label"

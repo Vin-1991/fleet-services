@@ -1,6 +1,7 @@
 export const UPLOAD_FLEET_SERVICES_FILE_CONSTANTS = {
   uploadFailedMessage: "Failed to upload file data.",
-  uploadLoaderMessage: "File is being uploaded.",
+  uploadLoaderMessage:
+    "Please wait while file is being cleaned, massaged and ingested.",
   uploadSuccessMessage: "File data uploaded successfully.",
 };
 

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -105,7 +107,7 @@ const DataTableToolbar = () => {
         id="tableTitle"
         component="div"
       >
-        Cleaned data
+        Processed data
       </Typography>
     </Toolbar>
   );
@@ -141,49 +143,68 @@ const DataTable = (props) => {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <DownloadData datasetName={datasetName} />
-        <Select
-          dataSetList={props?.dataSetList}
-          onValueSelected={(value) => {
-            onDataSetSelected(value);
-          }}
-        />
-        <DataTableToolbar></DataTableToolbar>
-        <TableContainer sx={{ height: 600, overflowX: "auto" }}>
-          <Table
-            sx={{ minWidth: 850 }}
-            aria-labelledby="tableTitle"
-            stickyHeader
-          >
-            <DataTableHead
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-              rowCount={props?.processedData.length}
-              datasetName={datasetName}
-            />
-            <TableBody>
-              {stableSort(props?.processedData, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => (
-                  <TableRow hover key={index}>
-                    <TableCell padding="checkbox"></TableCell>
-                    {Object.keys(props?.processedData[0]).map((label) => (
-                      <TableCell>{row[label]}</TableCell>
+        <Container maxWidth="xl">
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={5} lg={6}>
+              <DownloadData datasetName={datasetName} />
+            </Grid>
+            <Grid item xs={12} md={5} lg={6}>
+              <Select
+                dataSetList={props?.dataSetList}
+                onValueSelected={(value) => {
+                  onDataSetSelected(value);
+                }}
+              />
+            </Grid>
+          </Grid>
+        </Container>
+        {!!props?.processedData.length ? (
+          <>
+            <DataTableToolbar></DataTableToolbar>
+            <TableContainer sx={{ height: 600, overflowX: "auto" }}>
+              <Table
+                sx={{ minWidth: 850 }}
+                aria-labelledby="tableTitle"
+                stickyHeader
+              >
+                <DataTableHead
+                  order={order}
+                  orderBy={orderBy}
+                  onRequestSort={handleRequestSort}
+                  rowCount={props?.processedData.length}
+                  datasetName={datasetName}
+                />
+                <TableBody>
+                  {stableSort(
+                    props?.processedData,
+                    getComparator(order, orderBy)
+                  )
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row, index) => (
+                      <TableRow hover key={index}>
+                        <TableCell padding="checkbox"></TableCell>
+                        {Object.keys(props?.processedData[0]).map((label) => (
+                          <TableCell>{row[label]}</TableCell>
+                        ))}
+                      </TableRow>
                     ))}
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          component="div"
-          count={props?.processedData.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              component="div"
+              count={props?.processedData.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </>
+        ) : (
+          <Grid item xs={12} md={12} lg={12}>
+            No data to display. Please select one of the dataset.
+          </Grid>
+        )}
       </Paper>
     </Box>
   );
