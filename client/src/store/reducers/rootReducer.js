@@ -8,6 +8,7 @@ import popularStationsChartData from "./popularStationChartDataReducer";
 import stationsTurnOverChartData from "./stationsTurnOverChartReducer";
 import distributionBikeRentalDurationChartData from "./distributionBikeRentalDurationChartReducer";
 import stationsMapOverChartData from "./stationsMapChartDataReducer";
+import stationsDistanceChartData from "./stationsDistanceChartDataReducer";
 
 const rootReducer = combineReducers({
   uploadedFileData,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   stationsTurnOverChartData,
   distributionBikeRentalDurationChartData,
   stationsMapOverChartData,
+  stationsDistanceChartData,
 });
 
 export default rootReducer;

@@ -9,6 +9,9 @@ DISTRIBUTION_BIKE_RENTAL_DURATION_DATA_ERROR = (
 STATIONS_MAP_DATA_ERROR = (
     "Something went wrong while preparing the stations location data."
 )
+DISTANCE_BETWEEN_TWO_STATIONS_DATA_ERROR = (
+    "Something went wrong while preparing the average distance between two stations."
+)
 TABLE_NAME_REQUIRED = "Table name is required."
 
 # Endpoints
@@ -16,6 +19,7 @@ TOP_TEN_POPULAR_STATIONS_ENDPOINT = "/popular-stations/"
 STATIONS_MOST_TURNOVER_RATE_ENDPOINT = "/stations-most-turnover/"
 DISTRIBUTION_BIKE_RENTAL_DURATION_ENDPOINT = "/rental-distribution/"
 STATIONS_MAP_DATA_ENDPOINT = "/stations-map-data/"
+DISTANCE_BETWEEN_TWO_STATIONS_ENDPOINT = "/stations-distance-data/"
 
 
 # Queries
@@ -64,3 +68,29 @@ STATION_TURN_OVER_RATE_QUERY = """
 
 STATION_MAP_DATA_QUERY = """ SELECT terminal_name as terminal_id, name as terminal_name, 
                             latitude,longitude from bicycle_stations """
+
+
+DISTANCE_BETWEEN_TWO_STATIONS_QUERY = """
+            WITH result_1 AS (
+            SELECT  
+                stations1.name AS start_st_name,  
+                stations2.name AS end_st_name,
+                (point(stations1.longitude, stations1.latitude) <@> point(stations2.longitude, stations2.latitude)) AS dist
+            FROM bicycle_hires AS trips
+            JOIN bicycle_stations AS stations1
+                ON trips.start_station_id = stations1.id 
+            JOIN bicycle_stations AS stations2
+                ON trips.end_station_id = stations2.id
+            ), result_2 AS (
+            SELECT 
+                split_part(start_st_name,',',1) As start_st_name,
+                split_part(end_st_name,',',1) As end_st_name,
+                round(avg(dist)) AS average_distance
+            FROM result_1
+            GROUP BY start_st_name,end_st_name
+            )
+            SELECT *
+            FROM result_2
+            ORDER BY average_distance DESC
+            fetch first 20 rows only   
+"""

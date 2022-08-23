@@ -3,6 +3,7 @@ import DashboardTwoToneIcon from "@mui/icons-material/DashboardTwoTone";
 import UploadFileTwoToneIcon from "@mui/icons-material/UploadFileTwoTone";
 import ViewListTwoToneIcon from "@mui/icons-material/ViewListTwoTone";
 import MapTwoToneIcon from "@mui/icons-material/MapTwoTone";
+import DataThresholdingTwoToneIcon from "@mui/icons-material/DataThresholdingTwoTone";
 
 export const mainListItems = [
   {
@@ -24,9 +25,15 @@ export const mainListItems = [
     id: 3,
   },
   {
+    text: "Data Analysis",
+    icon: <DataThresholdingTwoToneIcon />,
+    path: "analysis",
+    id: 4,
+  },
+  {
     text: "Stations Map",
     icon: <MapTwoToneIcon />,
     path: "stations",
-    id: 4,
+    id: 5,
   },
 ];

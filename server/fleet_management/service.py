@@ -2,6 +2,8 @@ __all__ = [
     "MostPopularStationsService",
     "StationsMostTurnOverRateService",
     "DistributionBikeRentalDurationService",
+    "StationsMapDataService",
+    "DistanceBetweenTwoStationsDataDataService",
 ]
 
 import pandas as pd
@@ -11,6 +13,7 @@ from fleet_management.constants import (
     MOST_POPULAR_STATIONS_QUERY,
     STATION_TURN_OVER_RATE_QUERY,
     STATION_MAP_DATA_QUERY,
+    DISTANCE_BETWEEN_TWO_STATIONS_QUERY,
 )
 from utils.db_utils import (
     run_query_get_df,
@@ -114,7 +117,7 @@ class DistributionBikeRentalDurationService:
         return distribution_data
 
 
-class StationsMpaDataService:
+class StationsMapDataService:
     """
     This service class creates a json response for stations location on a map.
     Parameters
@@ -132,3 +135,25 @@ class StationsMpaDataService:
 
         df_stations_map_data: pd.DataFrame = run_query_get_df(STATION_MAP_DATA_QUERY)
         return load_json_response(df_stations_map_data.to_json(orient="records"))
+
+
+class DistanceBetweenTwoStationsDataDataService:
+    """
+    This service class creates a json for average distance between two stations.
+    Parameters
+    ----------
+        None
+
+    Returns
+    -------
+        load_json_response : dict
+            returns a converted json from dataframe.
+
+    """
+
+    def prepare_stations_distance_data() -> dict:
+
+        df_stations_distance_data: pd.DataFrame = run_query_get_df(
+            DISTANCE_BETWEEN_TWO_STATIONS_QUERY
+        )
+        return load_json_response(df_stations_distance_data.to_json(orient="records"))

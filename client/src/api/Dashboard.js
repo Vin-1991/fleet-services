@@ -7,6 +7,7 @@ const {
   STATIONS_TURNOVER_CHART_DATA,
   RENTAL_DISTRIBUTION_DURATION_CHART_DATA,
   STATIONS_MAP_CHART_DATA,
+  STATIONS_DISTANCE_CHART_DATA,
 } = urlConstants;
 
 export const getPopularStationsChartData = async () => {
@@ -30,5 +31,11 @@ export const getDistributionBikeRentalDurationChartData = async () => {
 export const getStationsMapChartData = async () => {
   return httpMethods.get(
     `${config.properties.FLEET_SERVICES_BASE_URL}${STATIONS_MAP_CHART_DATA}`
+  );
+};
+
+export const getStationsDistanceData = async () => {
+  return httpMethods.get(
+    `${config.properties.FLEET_SERVICES_BASE_URL}${STATIONS_DISTANCE_CHART_DATA}`
   );
 };

@@ -7,6 +7,7 @@ import { POPUALR_STATIONS_CHART_DATA_ACTIONS } from "./popularStationsChartActio
 import { STATIONS_TURNOVER_CHART_DATA_ACTIONS } from "./stationsTurnOverChartActionTypes";
 import { RENTAL_DISTRIBUTION_DURATION_CHART_DATA_ACTIONS } from "./distributionBikeRentalDurationChartActionTypes";
 import { STATIONS_MAP_CHART_DATA_ACTIONS } from "./stationsMapChartDataActionTypes";
+import { STATIONS_DISTANCE_CHART_DATA_ACTIONS } from "./stationsDistanceChartDataActionTypes";
 
 export {
   UPLOAD_FILE_ACTIONS,
@@ -18,4 +19,5 @@ export {
   STATIONS_TURNOVER_CHART_DATA_ACTIONS,
   RENTAL_DISTRIBUTION_DURATION_CHART_DATA_ACTIONS,
   STATIONS_MAP_CHART_DATA_ACTIONS,
+  STATIONS_DISTANCE_CHART_DATA_ACTIONS,
 };

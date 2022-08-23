@@ -41,7 +41,7 @@ const ClusteredChart = (props) => {
     yAxis.children.moveValue(
       am5.Label.new(root, {
         rotation: -90,
-        text: "Number of trips",
+        text: "Number of bikes",
         y: am5.p50,
         centerX: am5.p50,
       }),

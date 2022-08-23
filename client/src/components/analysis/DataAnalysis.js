@@ -1,0 +1,77 @@
+import { useEffect } from "react";
+import { connect } from "react-redux";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Chip from "@mui/material/Chip";
+import Divider from "@mui/material/Divider";
+
+import CategoryLineChart from "./CategoryLineChart";
+import SkeletonLoader from "../loader/skeleton";
+import { fetchStationsDistanceChartDataAction } from "../../store/actions/index";
+
+const DataAnalysis = (props) => {
+  const loadChartData = () => {
+    props?.getStationsDistanceChartData();
+  };
+
+  useEffect(() => {
+    loadChartData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <Box
+      sx={{
+        mt: 4,
+        mb: 4,
+      }}
+    >
+      <Container maxWidth="xl" sx={{ mt: 5, mb: 5 }}>
+        <Divider sx={{ mb: 2 }}>
+          <Chip label="Data Analysis" />
+        </Divider>
+        <Grid container spacing={2}>
+          {/* Line Chart */}
+          <Grid item xs={12} md={12} lg={12}>
+            <Paper
+              sx={{
+                p: 2,
+                display: "flex",
+                flexDirection: "column",
+                height: 650,
+              }}
+            >
+              {!!props?.stationsDistanceChartData.data.length ? (
+                <CategoryLineChart
+                  stationsDistanceChartData={
+                    props?.stationsDistanceChartData?.data
+                  }
+                />
+              ) : (
+                <SkeletonLoader height={600} />
+              )}
+            </Paper>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
+  );
+};
+
+const mapStateToProps = (state) => {
+  return {
+    stationsDistanceChartData: state.stationsDistanceChartData,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getStationsDistanceChartData: () => {
+      dispatch(fetchStationsDistanceChartDataAction());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DataAnalysis);

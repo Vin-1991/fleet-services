@@ -16,8 +16,10 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import DirectionsBikeRoundedIcon from "@mui/icons-material/DirectionsBikeRounded";
 
 import Dashboard from "../dashboard/Dashboard";
+import DataAnalysis from "../analysis/DataAnalysis";
 import Upload from "../upload/Upload";
 import CleanedData from "../cleaned-data/Cleaned-Data";
 import StationsMap from "../stationMap/StationMapChart";
@@ -121,7 +123,23 @@ const MainDrawer = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap component="div">
+            <DirectionsBikeRoundedIcon
+              sx={{ display: { xs: "none", md: "flex" }, mr: 1.5 }}
+            />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontWeight: 400,
+                letterSpacing: ".1rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
               Fleet Management Services
             </Typography>
           </Toolbar>
@@ -161,6 +179,7 @@ const MainDrawer = () => {
             <Route exact path="/" element={<Upload />}></Route>
             <Route path="/processed-data" element={<CleanedData />}></Route>
             <Route path="/dashboard" element={<Dashboard />}></Route>
+            <Route path="/analysis" element={<DataAnalysis />}></Route>
             <Route path="/stations" element={<StationsMap />}></Route>
           </Routes>
         </Box>

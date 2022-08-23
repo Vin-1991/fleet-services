@@ -47,7 +47,7 @@ export default function LRPSnackbar() {
         {snackbarMessage
           ? snackbarMessage.split("<br/>").map((elem) => {
               return (
-                <p key={elem} sx={{ margin: 0 }}>
+                <p key={elem} style={{ margin: 0 }}>
                   {elem}
                 </p>
               );

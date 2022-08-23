@@ -15,6 +15,7 @@ import { fetchPopularStationsChartDataAction } from "./popularStationsChartActio
 import { fetchStationsTurnOverChartDataAction } from "./stationsTurnOverChartActions";
 import { fetchDistributionBikeRentalDurationChartDataAction } from "./distributionBikeRentalDurationChartActions";
 import { fetchStationsMapChartDataAction } from "./stationMapDataActions";
+import { fetchStationsDistanceChartDataAction } from "./stationsDistanceDataActions";
 
 export {
   fleetServicesUploadFileAction,
@@ -29,4 +30,5 @@ export {
   fetchStationsTurnOverChartDataAction,
   fetchDistributionBikeRentalDurationChartDataAction,
   fetchStationsMapChartDataAction,
+  fetchStationsDistanceChartDataAction,
 };
