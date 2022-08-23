@@ -1,20 +1,24 @@
 import { useEffect, useState } from "react";
+import { connect, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
+import Fab from "@mui/material/Fab";
 import { Button, Box, Typography } from "@mui/material";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-import { connect, useDispatch } from "react-redux";
-import { useTranslation } from "react-i18next";
+import TaskOutlinedIcon from "@mui/icons-material/TaskOutlined";
+import Chip from "@mui/material/Chip";
+import Divider from "@mui/material/Divider";
+
 import Loader from "../loader/loader";
+import Select from "../shared/DropDown";
 import { UPLOAD_FLEET_SERVICES_FILE_CONSTANTS } from "../../constants/constants";
 import {
   showSnackbar,
   fleetServicesUploadFileAction,
   fleetServicesUploadFileActionReset,
 } from "../../store/actions/index";
-
-import Select from "../shared/DropDown";
 
 const Upload = (props) => {
   const dispatchStore = useDispatch();
@@ -89,46 +93,51 @@ const Upload = (props) => {
                 height: 250,
               }}
             >
-              <Typography sx={{ marginBottom: "2%" }}>
-                Upload file to begin
+              <Typography>
+                <Divider sx={{ mb: 3 }}>
+                  <Chip label="Upload a file to begin" />
+                </Divider>
               </Typography>
-              <Grid item xs={12} md={12} lg={12}>
+              <Grid item sx={{ mb: 3 }}>
                 <Select
                   onValueSelected={(value) => {
                     onDataSetSelected(value);
                   }}
                 />
               </Grid>
-              <Grid item xs={12} md={12} lg={12}>
-                <Button
-                  component="label"
-                  variant="outlined"
-                  disabled={!datasetName}
-                  startIcon={<UploadFileIcon />}
-                >
-                  Select file (.csv)
-                  <input
-                    type={"file"}
-                    id="import-button"
-                    accept=".csv"
-                    hidden
-                    onChange={handleFileUpload}
-                  />
-                </Button>
-                <Box>{fileName}</Box>
-              </Grid>
-              <Grid>
-                <Box>
+              <Grid container sx={{ my: 1 }}>
+                <Grid item xs>
                   <Button
                     component="label"
                     variant="outlined"
-                    startIcon={<UploadFileIcon />}
+                    disabled={!datasetName}
+                    startIcon={<TaskOutlinedIcon />}
+                  >
+                    Select file (.csv)
+                    <input
+                      type={"file"}
+                      id="import-button"
+                      accept=".csv"
+                      hidden
+                      onChange={handleFileUpload}
+                    />
+                  </Button>
+                  <Box>{fileName}</Box>
+                </Grid>
+                <Divider orientation="vertical" flexItem></Divider>
+                <Grid item xs>
+                  <Fab
+                    variant="extended"
+                    size="small"
+                    color="primary"
+                    aria-label="add"
                     disabled={!selectedFile}
                     onClick={uploadCSVFileData}
                   >
+                    <UploadFileIcon sx={{ mr: 1 }} />
                     Upload file
-                  </Button>
-                </Box>
+                  </Fab>
+                </Grid>
               </Grid>
             </Paper>
           </Grid>

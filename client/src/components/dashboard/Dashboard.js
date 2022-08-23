@@ -4,16 +4,18 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
+import Chip from "@mui/material/Chip";
+import Divider from "@mui/material/Divider";
+
 import ClusteredChart from "./ClusteredChart";
 import DualAxisChart from "./DualAxisChart";
 import LineChart from "./LineChart";
+import SkeletonLoader from "../loader/skeleton";
 import {
   fetchPopularStationsChartDataAction,
   fetchStationsTurnOverChartDataAction,
   fetchDistributionBikeRentalDurationChartDataAction,
 } from "../../store/actions/index";
-import Loader from "../loader/loader";
-import { CHART_DATA_CONSTANTS } from "../../constants/constants";
 
 const Dashboard = (props) => {
   const loadChartsData = () => {
@@ -34,12 +36,13 @@ const Dashboard = (props) => {
         mb: 4,
       }}
     >
-      {props?.popularStationsChartData?.pending && (
-        <Loader loading message={CHART_DATA_CONSTANTS.chartDataLoaderMessage} />
-      )}
       <Container maxWidth="xl" sx={{ mt: 5, mb: 5 }}>
+        <Divider sx={{ mb: 2 }}>
+          <Chip label="Analysis Dashboard" />
+        </Divider>
+
         <Grid container spacing={2}>
-          {/* Chart */}
+          {/* Charts */}
           <Grid item xs={12} md={6} lg={6}>
             <Paper
               sx={{
@@ -49,12 +52,14 @@ const Dashboard = (props) => {
                 height: 500,
               }}
             >
-              {!!props?.popularStationsChartData?.data.length && (
+              {!!props?.popularStationsChartData?.data.length ? (
                 <ClusteredChart
                   popularStationsChartData={
                     props?.popularStationsChartData?.data
                   }
                 />
+              ) : (
+                <SkeletonLoader height={450} />
               )}
             </Paper>
           </Grid>
@@ -68,12 +73,14 @@ const Dashboard = (props) => {
                 height: 500,
               }}
             >
-              {!!props?.stationsTurnOverChartData.data.length && (
+              {!!props?.stationsTurnOverChartData.data.length ? (
                 <DualAxisChart
                   stationsTurnOverChartData={
                     props?.stationsTurnOverChartData?.data
                   }
                 />
+              ) : (
+                <SkeletonLoader height={450} />
               )}
             </Paper>
           </Grid>
@@ -86,12 +93,14 @@ const Dashboard = (props) => {
                 height: 450,
               }}
             >
-              {!!props?.stationsTurnOverChartData.data.length && (
+              {!!props?.stationsTurnOverChartData.data.length ? (
                 <LineChart
                   distributionBikeRentalDurationChartData={
                     props?.distributionBikeRentalDurationChartData?.data
                   }
                 />
+              ) : (
+                <SkeletonLoader height={450} />
               )}
             </Paper>
           </Grid>

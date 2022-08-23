@@ -16,11 +16,12 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+
 import Dashboard from "../dashboard/Dashboard";
 import Upload from "../upload/Upload";
 import CleanedData from "../cleaned-data/Cleaned-Data";
 import StationsMap from "../stationMap/StationMapChart";
-import { mainListItems } from "./listItems";
+import { mainListItems } from "./ListItems";
 
 const drawerWidth = 240;
 
@@ -137,6 +138,7 @@ const MainDrawer = () => {
           </DrawerHeader>
           <Divider />
           <List>
+            {/* List of navigation items */}
             {mainListItems.map((element) => (
               <ListItemButton
                 component={NavLink}
@@ -154,6 +156,7 @@ const MainDrawer = () => {
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <DrawerHeader />
+          {/* All routes */}
           <Routes>
             <Route exact path="/" element={<Upload />}></Route>
             <Route path="/processed-data" element={<CleanedData />}></Route>

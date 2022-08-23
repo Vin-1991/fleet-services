@@ -3,7 +3,7 @@ import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 
-function DualAxisChart(props) {
+const DualAxisChart = (props) => {
   let data = props?.stationsTurnOverChartData;
 
   useLayoutEffect(() => {
@@ -214,5 +214,5 @@ function DualAxisChart(props) {
       Rental stations that have the most turnover rate
     </div>
   );
-}
+};
 export default DualAxisChart;

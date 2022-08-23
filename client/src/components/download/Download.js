@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import { Button, Box } from "@mui/material";
+import { Box } from "@mui/material";
+import Fab from "@mui/material/Fab";
 import { connect, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import FileDownload from "@mui/icons-material/FileDownload";
+
 import Loader from "../loader/loader";
 import { newDate } from "../../utils/utils";
 import { DOWNLOAD_FLEET_SERVICES_FILE_CONSTANTS } from "../../constants/constants";
@@ -63,15 +65,16 @@ const Download = (props) => {
         />
       )}
       <Box>
-        <Button
-          component="label"
-          variant="outlined"
-          startIcon={<FileDownload />}
+        <Fab
+          variant="extended"
+          size="small"
+          color="primary"
+          aria-label="add"
           disabled={!props?.datasetName}
           onClick={() => props?.downloadFile(props?.datasetName)}
         >
-          Download file
-        </Button>
+          <FileDownload />
+        </Fab>
       </Box>
     </Grid>
   );

@@ -3,7 +3,9 @@ INPUT_FILE_REQUIRED = "Input file is required."
 INPUT_FILE_ERROR = "Something went wrong while uploading the file."
 DOWNLOAD_FILE_ERROR = "Something went wrong while downloading the file."
 PROCESSED_DATA_ERROR = "Something went wrong while fetching the data."
+DATA_SET_LIST_ERROR = "Something went wrong while preparing a list of datasets."
 TABLE_NAME_REQUIRED = "Table name is required."
+INGEST_FILE_SUCCESS_MESSAGE = "File cleaned, massaged and uploaded successfully"
 
 # Endpoints
 UPLOAD_FILE_ENDPOINT = "/upload-file/"

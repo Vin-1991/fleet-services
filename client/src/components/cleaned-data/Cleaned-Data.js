@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
+
 import Datatable from "./Datatable";
 import {
   fetchFleetServicesProcessedDataAction,
@@ -25,8 +26,8 @@ const CleanedData = (props) => {
   return (
     <Box
       sx={{
-        mt: 4,
-        mb: 4,
+        my: 1.5,
+        mx: 1,
       }}
     >
       {props?.processedData?.pending && (

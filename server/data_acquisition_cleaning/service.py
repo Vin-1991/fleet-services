@@ -1,9 +1,11 @@
-__all__ = []
+__all__ = [
+    "DownloadCleanedDataViewService",
+    "ProcessedDataService",
+    "DataMassagingService",
+]
 
 import os
 import pandas as pd
-
-from typing import List
 
 from .constants import (
     FILE_PATH_EXPORT_FILE,
@@ -20,6 +22,20 @@ from utils.utils import create_timestamp, load_json_response
 
 
 class DownloadCleanedDataViewService:
+    """
+    This service class creates a data frame of the file, creates and save it in the 'data-files' folder.
+    Parameters
+    ----------
+        dataset : str
+            dataset id.
+
+    Returns
+    -------
+        file_path : str
+            returns a file path for download.
+
+    """
+
     def export_cleaned_file(dataset: str) -> str:
 
         df_download_file: pd.DataFrame = run_query_get_df(
@@ -40,11 +56,29 @@ class DownloadCleanedDataViewService:
 
 
 class ProcessedDataService:
-    def get_processed_data(dataset_name, dataset) -> dict:
+    """
+    This service class creates a processed data, data frame of the file and load it as a json response.
+    Parameters
+    ----------
+        dataset_name : str
+            name of the selected dataset
+        dataset_id : str
+            select dataset id.
+
+    Returns
+    -------
+        load_json_response : dict
+            returns a json response of processed data.
+
+    """
+
+    def get_processed_data(dataset_name: str, dataset_id: str) -> dict:
         df_processed_data: pd.DataFrame = run_query_get_df(
             DOWNLOAD_CLEANED_FILE_QUERY.format(table_name=dataset_name)
         )
-        datetime_columns = df_processed_data.select_dtypes(include=["datetime64"])
+        datetime_columns: pd.DataFrame = df_processed_data.select_dtypes(
+            include=["datetime64"]
+        )
         for col in datetime_columns.columns:
             df_processed_data[col] = df_processed_data[col].dt.strftime(
                 "%Y-%m-%d %H:%M:%S"
@@ -53,9 +87,30 @@ class ProcessedDataService:
 
 
 class DataMassagingService:
+    """
+    This service class process the file data.
+        - Checks all the anomalies in the file.
+        - Detect the dtypes of the columns and convert them in to the appropriate one.
+        - Check if the there are Null values in the manadatory columns. If yes then drop those rows.
+        - Check if there are duplicate rows and mark unique identifier.
+
+    Parameters
+    ----------
+        df : pd.DataFrame
+            dataframe of the uploaded file
+        dataset_id : int
+            selected dataset id in for which file data needs to be processed
+
+    Returns
+    -------
+        df : pd.DataFrame
+            returns a processed dataframe.
+
+    """
+
     @classmethod
-    def massage_cleanse_data(cls, df: pd.DataFrame, dataset: int) -> None:
-        dataset_details: dict = cls.get_dataset_related_details(dataset)
+    def massage_cleanse_data(cls, df: pd.DataFrame, dataset_id: int) -> None:
+        dataset_details: dict = cls.get_dataset_related_details(dataset_id)
         # check if there are null values in mandatory columns
         df = df.dropna(how="any", subset=dataset_details["mandatory_columns"])
 
@@ -85,15 +140,15 @@ class DataMassagingService:
 
         return df
 
-    def get_dataset_related_details(dataset: int) -> dict:
+    def get_dataset_related_details(dataset_id: int) -> dict:
         store_details: dict = {}
-        if dataset == 1:
+        if dataset_id == 1:
             store_details = {
                 "mandatory_columns": BICYCLE_HIRES_MANDATORY_COLUMNS,
                 "unique_column": "rental_id",
                 "dataset_column_mappings": DATASET_COLUMNS_BICYCLE_HIRES_TYPE_MAPPING,
             }
-        elif dataset == 2:
+        elif dataset_id == 2:
             store_details = {
                 "mandatory_columns": BICYCLE_STATIONS_MANDATORY_COLUMNS,
                 "unique_column": "id",

@@ -1,5 +1,6 @@
-import "./App.css";
 import React from "react";
+import "./App.css";
+
 import DrawerPanel from "./components/drawer/Drawer";
 import Snackbars from "./components/loader/snackBar";
 

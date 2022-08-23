@@ -4,6 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import { Icon } from "@mui/material/";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+
 import { clearSnackbar } from "../../store/actions/index";
 
 const Alert = forwardRef(function Alert(props, ref) {
@@ -46,7 +47,7 @@ export default function LRPSnackbar() {
         {snackbarMessage
           ? snackbarMessage.split("<br/>").map((elem) => {
               return (
-                <p key={elem} style={{ margin: 0 }}>
+                <p key={elem} sx={{ margin: 0 }}>
                   {elem}
                 </p>
               );

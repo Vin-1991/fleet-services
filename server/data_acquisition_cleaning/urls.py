@@ -15,7 +15,7 @@ from .constants import (
 def initialize_data_acquisition_cleaning_api_urls(api) -> None:
 
     """
-    This method initialize the consolidator API URLs.
+    This method initialize the data acquisition cleaning API URLs.
     Parameters
     ----------
         api

@@ -11,12 +11,12 @@ function LineChart(props) {
 
     root.setThemes([am5themes_Animated.new(root)]);
 
-    var chart = root.container.children.push(am5xy.XYChart.new(root, {}));
+    let chart = root.container.children.push(am5xy.XYChart.new(root, {}));
 
-    var xRenderer = am5xy.AxisRendererX.new(root, {});
+    let xRenderer = am5xy.AxisRendererX.new(root, {});
     xRenderer.labels.template.setAll({ multiLocation: 0, location: 0 });
 
-    var xAxis = chart.xAxes.push(
+    let xAxis = chart.xAxes.push(
       am5xy.ValueAxis.new(root, {
         renderer: xRenderer,
         maxDeviation: 1,
@@ -33,9 +33,9 @@ function LineChart(props) {
       0
     );
 
-    var yRenderer = am5xy.AxisRendererY.new(root, {});
+    let yRenderer = am5xy.AxisRendererY.new(root, {});
 
-    var yAxis = chart.yAxes.push(
+    let yAxis = chart.yAxes.push(
       am5xy.ValueAxis.new(root, {
         renderer: yRenderer,
       })
@@ -51,7 +51,7 @@ function LineChart(props) {
       0
     );
 
-    var cursor = chart.set(
+    let cursor = chart.set(
       "cursor",
       am5xy.XYCursor.new(root, {
         behavior: "none",
@@ -60,7 +60,7 @@ function LineChart(props) {
     );
     cursor.lineY.set("visible", false);
 
-    var series = chart.series.push(
+    let series = chart.series.push(
       am5xy.LineSeries.new(root, {
         name: "Series",
         xAxis: xAxis,
@@ -77,7 +77,7 @@ function LineChart(props) {
     );
 
     series.bullets.push(function () {
-      var circleTemplate = am5.Template.new({
+      let circleTemplate = am5.Template.new({
         radius: 6,
         templateField: "bulletSettings",
         fill: series.get("fill"),
@@ -85,7 +85,7 @@ function LineChart(props) {
         stroke: root.interfaceColors.get("background"),
       });
 
-      var circle = am5.Circle.new(root, {}, circleTemplate);
+      let circle = am5.Circle.new(root, {}, circleTemplate);
 
       return am5.Bullet.new(root, {
         sprite: circle,

@@ -3,7 +3,7 @@ import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 
-function ClusteredChart(props) {
+const ClusteredChart = (props) => {
   let data = props?.popularStationsChartData;
 
   useLayoutEffect(() => {
@@ -90,5 +90,5 @@ function ClusteredChart(props) {
       Top 10 of most popular stations on weekdays
     </div>
   );
-}
+};
 export default ClusteredChart;

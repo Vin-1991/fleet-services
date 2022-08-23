@@ -4,7 +4,7 @@ from fleet_management.urls import initialize_fleet_management_api_urls
 
 def initialize_api_routes(api) -> None:
     """
-    This method initialize the all the API URLs.
+    This method initialize all the API URLs.
     Parameters
     ----------
         api

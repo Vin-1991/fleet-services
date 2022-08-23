@@ -14,7 +14,7 @@ const DropDown = (props) => {
   };
 
   return (
-    <FormControl sx={{ width: 300 }} size="small">
+    <FormControl sx={{ width: 250 }} size="small">
       <InputLabel id="demo-simple-select-label">Dataset</InputLabel>
       <Select
         labelId="demo-simple-select-label"

@@ -1,7 +1,8 @@
 __all__ = ["app_index", "all_exception_handler", "api_not_found"]
+
 import logging
 import os
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
 from flask_cors import CORS, cross_origin
 from flask_restful import Api
 
@@ -23,8 +24,6 @@ db.init_app(app)
 
 with app.app_context():
     create_connection_sql()
-    # run()
-
 
 api = Api(app)
 

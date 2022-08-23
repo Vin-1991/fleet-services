@@ -1,12 +1,18 @@
-__all__ = []
+__all__ = [
+    "MostPopularStationsView",
+    "StationsMostTurnOverRateView",
+    "DistributionBikeRentalDurationView",
+    "StationsMapDataView",
+]
 
 from typing import List
-from flask_restful import Resource, reqparse
+from flask_restful import Resource
 
 from fleet_management.constants import (
     POPULAR_STATION_DATA_ERROR,
     STATIONS_MOST_TURNOVER_RATE_DATA_ERROR,
     DISTRIBUTION_BIKE_RENTAL_DURATION_DATA_ERROR,
+    STATIONS_MAP_DATA_ERROR,
 )
 from fleet_management.service import (
     MostPopularStationsService,
@@ -18,7 +24,20 @@ from utils.utils import make_json_response
 
 
 class MostPopularStationsView(Resource):
-    def get(self):
+    """
+    This GET view creates a json response for most popular stations.
+    Parameters
+    ----------
+        None
+
+    Returns
+    -------
+        make_response : dict
+           returns a converted json response with a HTTP status code.
+
+    """
+
+    def get(self) -> dict:
         try:
             stations_data: List[
                 dict
@@ -33,7 +52,20 @@ class MostPopularStationsView(Resource):
 
 
 class StationsMostTurnOverRateView(Resource):
-    def get(self):
+    """
+    This GET view creates a json response for stations which are having most trun over rate.
+    Parameters
+    ----------
+        None
+
+    Returns
+    -------
+        make_response : dict
+            returns a converted json response with a HTTP status code.
+
+    """
+
+    def get(self) -> dict:
         try:
             stations_turnover_data: List[
                 dict
@@ -48,7 +80,20 @@ class StationsMostTurnOverRateView(Resource):
 
 
 class DistributionBikeRentalDurationView(Resource):
-    def get(self):
+    """
+    This GET view creates a json response for distribuion of bike rental duration.
+    Parameters
+    ----------
+       None
+
+    Returns
+    -------
+        make_response : dict
+            returns a converted json response with a HTTP status code.
+
+    """
+
+    def get(self) -> dict:
         try:
             distribution_data: List[
                 dict
@@ -65,14 +110,27 @@ class DistributionBikeRentalDurationView(Resource):
 
 
 class StationsMapDataView(Resource):
-    def get(self):
+    """
+    This GET view creates a json response for stations location for a map.
+    Parameters
+    ----------
+        None
+
+    Returns
+    -------
+        make_response : dict
+            returns a converted json response with a HTTP status code.
+
+    """
+
+    def get(self) -> dict:
         try:
             stations_turnover_data: List[
                 dict
             ] = StationsMpaDataService.prepare_stations_map_data()
         except Exception as e:
             error_message: dict = {
-                "error_message": f"{STATIONS_MOST_TURNOVER_RATE_DATA_ERROR + ' => ' + str(e)}"
+                "error_message": f"{STATIONS_MAP_DATA_ERROR + ' => ' + str(e)}"
             }
             return make_json_response(error_message, 500)
 

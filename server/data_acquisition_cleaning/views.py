@@ -1,6 +1,13 @@
-__all__ = []
+__all__ = [
+    "UploadFileView",
+    "DownloadCleanedDataView",
+    "ProcessedDataView",
+    "DataSetListView",
+]
+
 import werkzeug
 import threading
+import pandas as pd
 from typing import List
 from flask import request, send_file
 from flask_restful import Resource, reqparse
@@ -11,6 +18,8 @@ from .constants import (
     DOWNLOAD_FILE_ERROR,
     PROCESSED_DATA_ERROR,
     DATASETS,
+    INGEST_FILE_SUCCESS_MESSAGE,
+    DATA_SET_LIST_ERROR,
 )
 from .service import (
     DownloadCleanedDataViewService,
@@ -27,6 +36,22 @@ from utils.utils import (
 
 
 class UploadFileView(Resource):
+    """
+    This POST view takes a file object, clean, massage and ingest in to db.
+    Parameters
+    ----------
+        input_file : binary
+            file object
+        dataset : str
+            data set id
+
+    Returns
+    -------
+        make_response : dict
+            returns a converted json response with a HTTP status code.
+
+    """
+
     parser = reqparse.RequestParser()
     parser.add_argument(
         "input_file",
@@ -41,21 +66,36 @@ class UploadFileView(Resource):
         input_file = args["input_file"]
         dataset: str = request.form.get("dataset")
         try:
-            df = read_file(input_file)
-            processed_df = DataMassagingService.massage_cleanse_data(df, int(dataset))
+            df: pd.DataFrame = read_file(input_file)
+            processed_df: pd.DataFrame = DataMassagingService.massage_cleanse_data(
+                df, int(dataset)
+            )
             ingest_data_to_db(processed_df, get_dataset_name(dataset))
+
         except Exception as e:
             error_message: dict = {
                 "error_message": f"{INPUT_FILE_ERROR + ' => ' + str(e)}"
             }
             return make_json_response(error_message, 500)
 
-        return make_json_response(
-            {"message": "File cleaned, massaged and uploaded successfully"}, 200
-        )
+        return make_json_response({"message": INGEST_FILE_SUCCESS_MESSAGE}, 200)
 
 
 class DownloadCleanedDataView(Resource):
+    """
+    This GET view createa file from the query result,delete it via thread and returns back for download purposes.
+    Parameters
+    ----------
+        dataset : str
+            data set id
+
+    Returns
+    -------
+        file_obj : file
+            returns a file object
+
+    """
+
     def get(self):
         dataset: str = request.args.get("dataset")
         try:
@@ -76,6 +116,20 @@ class DownloadCleanedDataView(Resource):
 
 
 class ProcessedDataView(Resource):
+    """
+    This GET view creates a processed data for the passed dataset id.
+    Parameters
+    ----------
+         dataset : str
+            data set id
+
+    Returns
+    -------
+        processed_data : dict
+            returns a converted json response.
+
+    """
+
     def get(self):
         dataset: str = request.args.get("dataset")
         try:
@@ -93,6 +147,19 @@ class ProcessedDataView(Resource):
 
 
 class DataSetListView(Resource):
+    """
+    This GET view creates a list of available datasets.
+    Parameters
+    ----------
+        None
+
+    Returns
+    -------
+        make_response : dict
+            returns a converted json response with a HTTP status code.
+
+    """
+
     def get(self):
         try:
             data_set: List[dict] = []
@@ -102,7 +169,7 @@ class DataSetListView(Resource):
 
         except Exception as e:
             error_message = {
-                "error_message": f"{PROCESSED_DATA_ERROR + ' => ' + str(e)}"
+                "error_message": f"{DATA_SET_LIST_ERROR + ' => ' + str(e)}"
             }
             return make_json_response(error_message, 500)
 

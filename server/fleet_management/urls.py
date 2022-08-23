@@ -2,20 +2,20 @@ from fleet_management.views import (
     MostPopularStationsView,
     StationsMostTurnOverRateView,
     DistributionBikeRentalDurationView,
-    StationsMapDataView
+    StationsMapDataView,
 )
 from fleet_management.constants import (
     TOP_TEN_POPULAR_STATIONS_ENDPOINT,
     STATIONS_MOST_TURNOVER_RATE_ENDPOINT,
     DISTRIBUTION_BIKE_RENTAL_DURATION_ENDPOINT,
-STATIONS_MAP_DATA_ENDPOINT
+    STATIONS_MAP_DATA_ENDPOINT,
 )
 
 
 def initialize_fleet_management_api_urls(api) -> None:
 
     """
-    This method initialize the consolidator API URLs.
+    This method initialize the fleet management API URLs.
     Parameters
     ----------
         api

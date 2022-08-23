@@ -2,6 +2,7 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
+import Divider from "@mui/material/Divider";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -14,6 +15,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import { visuallyHidden } from "@mui/utils";
+
 import {
   BICYCLE_HIRES_HEAD_CELLS,
   BICYCLE_STATIONS_HEAD_CELLS,
@@ -142,13 +144,14 @@ const DataTable = (props) => {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
+      <Paper sx={{ width: "100%", mb: 2, height: 700 }}>
         <Container maxWidth="xl">
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={5} lg={6}>
-              <DownloadData datasetName={datasetName} />
-            </Grid>
-            <Grid item xs={12} md={5} lg={6}>
+          <Grid
+            container
+            spacing={2}
+            sx={{ justifyContent: "flex-end", my: 1 }}
+          >
+            <Grid item>
               <Select
                 dataSetList={props?.dataSetList}
                 onValueSelected={(value) => {
@@ -156,12 +159,17 @@ const DataTable = (props) => {
                 }}
               />
             </Grid>
+            <Grid item>
+              <DownloadData datasetName={datasetName} />
+            </Grid>
           </Grid>
+          <Divider variant="middle" />
         </Container>
+
         {!!props?.processedData.length ? (
           <>
             <DataTableToolbar></DataTableToolbar>
-            <TableContainer sx={{ height: 600, overflowX: "auto" }}>
+            <TableContainer sx={{ height: 520, overflowX: "auto" }}>
               <Table
                 sx={{ minWidth: 850 }}
                 aria-labelledby="tableTitle"
@@ -201,9 +209,11 @@ const DataTable = (props) => {
             />
           </>
         ) : (
-          <Grid item xs={12} md={12} lg={12}>
-            No data to display. Please select one of the dataset.
-          </Grid>
+          <Box sx={{ my: 15, mx: 1 }}>
+            <Typography color="text.secondary" variant="h6" component="div">
+              No data to display. Please select one of the dataset.
+            </Typography>
+          </Box>
         )}
       </Paper>
     </Box>

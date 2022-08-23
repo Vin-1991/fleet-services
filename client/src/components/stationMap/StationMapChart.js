@@ -4,11 +4,12 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
+import Chip from "@mui/material/Chip";
+import Divider from "@mui/material/Divider";
+
+import SkeletonLoader from "../loader/skeleton";
 import MapChart from "../dashboard/MapChart";
 import { fetchStationsMapChartDataAction } from "../../store/actions/index";
-import Loader from "../loader/loader";
-import { CHART_DATA_CONSTANTS } from "../../constants/constants";
 
 const StationsMap = (props) => {
   const loadChartsData = () => {
@@ -27,12 +28,6 @@ const StationsMap = (props) => {
         mb: 4,
       }}
     >
-      {props?.stationsMapOverChartData?.pending && (
-        <Loader
-          loading
-          message={CHART_DATA_CONSTANTS.mapChartDataLoaderMessage}
-        />
-      )}
       <Container maxWidth="xl" sx={{ mt: 5, mb: 5 }}>
         <Grid container spacing={2}>
           {/* Chart */}
@@ -45,15 +40,19 @@ const StationsMap = (props) => {
                 height: 750,
               }}
             >
-              <Typography sx={{ fontSize: "1.5rem" }}>
-                Stations on Map
-              </Typography>
-              {!!props?.stationsMapOverChartData?.data.length && (
+              <Box sx={{ my: 1.5 }}>
+                <Divider>
+                  <Chip label="Station locations" />
+                </Divider>
+              </Box>
+              {!!props?.stationsMapOverChartData?.data.length ? (
                 <MapChart
                   stationsMapOverChartData={
                     props?.stationsMapOverChartData?.data
                   }
                 />
+              ) : (
+                <SkeletonLoader height={750} />
               )}
             </Paper>
           </Grid>
