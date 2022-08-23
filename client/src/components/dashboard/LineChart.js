@@ -108,7 +108,7 @@ function LineChart(props) {
 
   return (
     <div id="lineChartDiv" style={{ width: "100%", height: "400px" }}>
-      Distribution of bike rental duration during weekdays.
+      Distribution of bike rental duration during weekdays
     </div>
   );
 }
