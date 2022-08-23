@@ -31,7 +31,7 @@ api = Api(app)
 @app.route("/health-check", methods=["GET"])
 @cross_origin()
 def app_index():
-    return jsonify({"data": "I am alive. Thank you.."})
+    return jsonify({"message": "I am alive. Thank you.."})
 
 
 @app.errorhandler(Exception)

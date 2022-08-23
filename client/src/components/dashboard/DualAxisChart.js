@@ -103,8 +103,8 @@ const DualAxisChart = (props) => {
         yAxis: yAxis,
         valueYField: "number_of_trips",
         sequencedInterpolation: true,
-        stroke: chart.get("colors").getIndex(13),
-        fill: chart.get("colors").getIndex(13),
+        stroke: chart.get("colors").getIndex(11),
+        fill: chart.get("colors").getIndex(11),
         categoryXField: "category",
         tooltip: am5.Tooltip.new(root, {
           labelText: "Number of trips : {valueY}",

@@ -69,7 +69,10 @@ function LineChart(props) {
         valueXField: "duartion",
         locationX: 0,
         seriesTooltipTarget: "bullet",
+        stroke: chart.get("colors").getIndex(3),
+        fill: chart.get("colors").getIndex(3),
         tooltip: am5.Tooltip.new(root, {
+          maxTooltipDistance: 20,
           pointerOrientation: "horizontal",
           labelText: "Number of trips : {valueY}",
         }),

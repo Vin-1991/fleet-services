@@ -4,118 +4,17 @@ import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 
 const CategoryLineChart = (props) => {
+  const chartData = props?.stationsDistanceChartData;
   useLayoutEffect(() => {
     let data = [];
+
     let root = am5.Root.new("categoryLinechartdiv");
 
-    let dt = [
-      {
-        average_distance: 8.0,
-        end_st_name: "Here East North",
-        start_st_name: "Ashley Crescent",
-      },
-      {
-        average_distance: 7.0,
-        end_st_name: "Natural History Museum",
-        start_st_name: "Import Dock",
-      },
-      {
-        average_distance: 7.0,
-        end_st_name: "Westferry Circus",
-        start_st_name: "Lancaster Gate ",
-      },
-      {
-        average_distance: 7.0,
-        end_st_name: "Saunders Ness Road",
-        start_st_name: "Parkway",
-      },
-      {
-        average_distance: 7.0,
-        end_st_name: "Pembridge Villas",
-        start_st_name: "Stepney Green Station",
-      },
-      {
-        average_distance: 6.0,
-        end_st_name: "Great Tower Street",
-        start_st_name: "Wandsworth Town Station",
-      },
-      {
-        average_distance: 6.0,
-        end_st_name: "London Zoo Car Park",
-        start_st_name: "Fisherman's Walk West",
-      },
-      {
-        average_distance: 6.0,
-        end_st_name: "Portman Square",
-        start_st_name: "Stainsby Road ",
-      },
-      {
-        average_distance: 6.0,
-        end_st_name: "Ram Street",
-        start_st_name: "Gloucester Avenue",
-      },
-      {
-        average_distance: 6.0,
-        end_st_name: "Smugglers Way",
-        start_st_name: "Tooley Street",
-      },
-      {
-        average_distance: 6.0,
-        end_st_name: "Imperial Wharf Station",
-        start_st_name: "Shoreditch High Street",
-      },
-      {
-        average_distance: 6.0,
-        end_st_name: "Clapham Common North Side",
-        start_st_name: "New Road 1 ",
-      },
-      {
-        average_distance: 6.0,
-        end_st_name: "New Road 1 ",
-        start_st_name: "Clapham Common North Side",
-      },
-      {
-        average_distance: 6.0,
-        end_st_name: "Moorfields",
-        start_st_name: "Northfields",
-      },
-      {
-        average_distance: 6.0,
-        end_st_name: "New Inn Yard",
-        start_st_name: "Woodstock Grove",
-      },
-      {
-        average_distance: 6.0,
-        end_st_name: "King Edward Street",
-        start_st_name: "Finlay Street",
-      },
-      {
-        average_distance: 6.0,
-        end_st_name: "Stonecutter Street",
-        start_st_name: "Putney Rail Station",
-      },
-      {
-        average_distance: 6.0,
-        end_st_name: "Exhibition Road Museums",
-        start_st_name: "Bancroft Road",
-      },
-      {
-        average_distance: 6.0,
-        end_st_name: "St. Katharine's Way",
-        start_st_name: "Westfield Southern Terrace ",
-      },
-      {
-        average_distance: 6.0,
-        end_st_name: "Fore Street",
-        start_st_name: "Blythe Road West",
-      },
-    ];
-
-    for (let idx = 0; idx < dt.length; idx++) {
+    for (let idx = 0; idx < chartData.length; idx++) {
       data.push({
-        category: dt[idx].start_st_name,
-        end_st_name: dt[idx].end_st_name,
-        value: dt[idx].average_distance,
+        category: chartData[idx].start_st_name,
+        end_st_name: chartData[idx].end_st_name,
+        value: chartData[idx].average_distance,
       });
     }
 
@@ -143,7 +42,7 @@ const CategoryLineChart = (props) => {
     let xAxis = chart.xAxes.push(
       am5xy.CategoryAxis.new(root, {
         categoryField: "category",
-        tooltip: am5.Tooltip.new(root, { fill: am5.color("#6771dc") }),
+        tooltip: am5.Tooltip.new(root, {}),
         renderer: xRenderer,
       })
     );
@@ -189,7 +88,8 @@ const CategoryLineChart = (props) => {
           valueYField: field,
           categoryXField: "category",
           sequencedInterpolation: true,
-          stroke: am5.color("#6771dc"),
+          stroke: chart.get("colors").getIndex(3),
+          fill: chart.get("colors").getIndex(3),
           tooltip: am5.Tooltip.new(root, {
             labelText:
               "End station : {end_st_name}\nDistance(miles) : {valueY}",
@@ -203,7 +103,7 @@ const CategoryLineChart = (props) => {
           locationX: 0.5,
           sprite: am5.Circle.new(root, {
             radius: 4,
-            fill: am5.color("#6771dc"),
+            fill: chart.get("colors").getIndex(3),
           }),
         });
       });
@@ -261,7 +161,7 @@ const CategoryLineChart = (props) => {
     return () => {
       root.dispose();
     };
-  }, []);
+  }, [chartData]);
 
   return (
     <div id="categoryLinechartdiv" style={{ width: "100%", height: "600px" }}>
