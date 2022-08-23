@@ -80,7 +80,7 @@ class ProcessedDataView(Resource):
         dataset: str = request.args.get("dataset")
         try:
             processed_data: dict = ProcessedDataService.get_processed_data(
-                get_dataset_name(dataset)
+                get_dataset_name(dataset), dataset
             )
 
         except Exception as e:

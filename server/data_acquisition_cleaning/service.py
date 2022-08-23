@@ -40,11 +40,15 @@ class DownloadCleanedDataViewService:
 
 
 class ProcessedDataService:
-    def get_processed_data(dataset) -> dict:
+    def get_processed_data(dataset_name, dataset) -> dict:
         df_processed_data: pd.DataFrame = run_query_get_df(
-            DOWNLOAD_CLEANED_FILE_QUERY.format(table_name=dataset)
+            DOWNLOAD_CLEANED_FILE_QUERY.format(table_name=dataset_name)
         )
-
+        datetime_columns = df_processed_data.select_dtypes(include=["datetime64"])
+        for col in datetime_columns.columns:
+            df_processed_data[col] = df_processed_data[col].dt.strftime(
+                "%Y-%m-%d %H:%M:%S"
+            )
         return load_json_response(df_processed_data.to_json(orient="records"))
 
 
@@ -70,6 +74,7 @@ class DataMassagingService:
                 df[type] = df[type].astype(float)
             elif dataset_columns_list[type] == "bool":
                 df[type] = df[type].astype(bool)
+                df[type] = df[type].apply(lambda x: "Yes" if x == True else "No")
             elif dataset_columns_list[type] == "str":
                 df[type] = df[type].astype("category")
             elif dataset_columns_list[type] == "timestamp":

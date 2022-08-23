@@ -5,7 +5,7 @@ import Paper from "@mui/material/Paper";
 import { Button, Box, Typography } from "@mui/material";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { connect, useDispatch } from "react-redux";
-
+import { useTranslation } from "react-i18next";
 import Loader from "../loader/loader";
 import { UPLOAD_FLEET_SERVICES_FILE_CONSTANTS } from "../../constants/constants";
 import {
@@ -21,6 +21,7 @@ const Upload = (props) => {
   const [fileName, setFileName] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [datasetName, setDatasetName] = useState("");
+  const { t } = useTranslation();
 
   const handleFileUpload = (event) => {
     const fileDetails = event.target.files[0];
@@ -40,8 +41,8 @@ const Upload = (props) => {
       setDatasetName("");
       dispatchStore(
         showSnackbar({
-          message: UPLOAD_FLEET_SERVICES_FILE_CONSTANTS.uploadSuccessMessage,
-          severity: "success",
+          message: t(UPLOAD_FLEET_SERVICES_FILE_CONSTANTS.uploadSuccessMessage),
+          severity: t("success"),
         })
       );
     }
@@ -52,8 +53,8 @@ const Upload = (props) => {
       setDatasetName("");
       dispatchStore(
         showSnackbar({
-          message: UPLOAD_FLEET_SERVICES_FILE_CONSTANTS.uploadFailedMessage,
-          severity: "error",
+          message: t(UPLOAD_FLEET_SERVICES_FILE_CONSTANTS.uploadFailedMessage),
+          severity: t("error"),
         })
       );
     }

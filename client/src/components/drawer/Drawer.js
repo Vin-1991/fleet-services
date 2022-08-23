@@ -1,23 +1,58 @@
 import * as React from "react";
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import MuiDrawer from "@mui/material/Drawer";
+import { BrowserRouter, Route, Routes, NavLink } from "react-router-dom";
+import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
+import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { NavLink } from "react-router-dom";
+import Dashboard from "../dashboard/Dashboard";
+import Upload from "../upload/Upload";
+import CleanedData from "../cleaned-data/Cleaned-Data";
+import StationsMap from "../stationMap/StationMapChart";
 import { mainListItems } from "./listItems";
 
 const drawerWidth = 240;
+
+const openedMixin = (theme) => ({
+  width: drawerWidth,
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: "hidden",
+});
+
+const closedMixin = (theme) => ({
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: "hidden",
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up("sm")]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+}));
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -40,91 +75,66 @@ const AppBar = styled(MuiAppBar, {
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
-  "& .MuiDrawer-paper": {
-    position: "absolute",
-    width: drawerWidth,
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    boxSizing: "border-box",
-    ...(!open && {
-      overflowX: "hidden",
-      transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      width: theme.spacing(7),
-      [theme.breakpoints.up("sm")]: {
-        width: theme.spacing(9),
-      },
-    }),
-  },
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+  ...(open && {
+    ...openedMixin(theme),
+    "& .MuiDrawer-paper": openedMixin(theme),
+  }),
+  ...(!open && {
+    ...closedMixin(theme),
+    "& .MuiDrawer-paper": closedMixin(theme),
+  }),
 }));
 
-const mdTheme = createTheme();
-
-function DrawerContent() {
+const MainDrawer = () => {
+  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState(1);
-  const toggleDrawer = () => {
-    setOpen(!open);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
   };
 
   return (
-    <ThemeProvider theme={mdTheme}>
-      <Box
-        sx={{
-          display: "flex",
-          backgroundColor: (theme) =>
-            theme.palette.mode === "light"
-              ? theme.palette.grey[100]
-              : theme.palette.grey[900],
-        }}
-      >
+    <BrowserRouter>
+      <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar position="relative" open={open}>
-          <Toolbar
-            sx={{
-              pr: "24px", // keep right padding when drawer closed
-            }}
-          >
+        <AppBar position="fixed" open={open}>
+          <Toolbar>
             <IconButton
-              edge="start"
               color="inherit"
               aria-label="open drawer"
-              onClick={toggleDrawer}
+              onClick={handleDrawerOpen}
+              edge="start"
               sx={{
-                marginRight: "36px",
+                marginRight: 5,
                 ...(open && { display: "none" }),
               }}
             >
               <MenuIcon />
             </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Bicycle Fleet Management Services Tool
+            <Typography variant="h6" noWrap component="div">
+              Fleet Management Services
             </Typography>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
             </IconButton>
-          </Toolbar>
+          </DrawerHeader>
           <Divider />
           <List>
             {mainListItems.map((element) => (
@@ -140,24 +150,20 @@ function DrawerContent() {
               </ListItemButton>
             ))}
           </List>
+          <Divider />
         </Drawer>
-        {/* <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === "light"
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: "100vh",
-            overflow: "auto",
-          }}
-        ></Box> */}
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <DrawerHeader />
+          <Routes>
+            <Route exact path="/" element={<Upload />}></Route>
+            <Route path="/processed-data" element={<CleanedData />}></Route>
+            <Route path="/dashboard" element={<Dashboard />}></Route>
+            <Route path="/stations" element={<StationsMap />}></Route>
+          </Routes>
+        </Box>
       </Box>
-    </ThemeProvider>
+    </BrowserRouter>
   );
-}
+};
 
-export default function DrawerPanel() {
-  return <DrawerContent />;
-}
+export default MainDrawer;

@@ -40,7 +40,7 @@ const Dashboard = (props) => {
       <Container maxWidth="xl" sx={{ mt: 5, mb: 5 }}>
         <Grid container spacing={2}>
           {/* Chart */}
-          <Grid item xs={12} md={5} lg={6}>
+          <Grid item xs={12} md={6} lg={6}>
             <Paper
               sx={{
                 p: 2,
@@ -59,7 +59,7 @@ const Dashboard = (props) => {
             </Paper>
           </Grid>
 
-          <Grid item xs={12} md={5} lg={6}>
+          <Grid item xs={12} md={6} lg={6}>
             <Paper
               sx={{
                 p: 2,

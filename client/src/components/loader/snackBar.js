@@ -1,25 +1,26 @@
 import React, { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
-import { Icon } from "@mui/material";
-import { clearSnackbar } from "../../store/actions/snackBarActions";
+import { Icon } from "@mui/material/";
+import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import { clearSnackbar } from "../../store/actions/index";
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const Snackbars = () => {
+export default function LRPSnackbar() {
   const dispatch = useDispatch();
 
   const { snackbarMessage, snackbarOpen, severity } = useSelector(
-    (state) => state.lrpSnackbar || {}
+    (state) => state.snackBar || {}
   );
 
   function handleClose() {
     dispatch(clearSnackbar());
   }
+
   return (
     <Snackbar
       anchorOrigin={{
@@ -27,7 +28,7 @@ const Snackbars = () => {
         horizontal: "right",
       }}
       open={snackbarOpen}
-      autoHideDuration={7000}
+      autoHideDuration={3000}
       onClose={handleClose}
       aria-describedby="client-snackbar"
       action={[
@@ -54,6 +55,4 @@ const Snackbars = () => {
       </Alert>
     </Snackbar>
   );
-};
-
-export default Snackbars;
+}

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import { Button, Box } from "@mui/material";
 import { connect, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import FileDownload from "@mui/icons-material/FileDownload";
 import Loader from "../loader/loader";
 import { newDate } from "../../utils/utils";
@@ -14,6 +15,7 @@ import {
 
 const Download = (props) => {
   const dispatchStore = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (props?.downloadFileData?.successful) {
@@ -30,9 +32,10 @@ const Download = (props) => {
       link.click();
       dispatchStore(
         showSnackbar({
-          message:
-            DOWNLOAD_FLEET_SERVICES_FILE_CONSTANTS.downloadSuccessMessage,
-          severity: "success",
+          message: t(
+            DOWNLOAD_FLEET_SERVICES_FILE_CONSTANTS.downloadSuccessMessage
+          ),
+          severity: t("success"),
         })
       );
       props?.downloadFileReset();
@@ -40,8 +43,10 @@ const Download = (props) => {
     if (props?.downloadFileData?.rejected) {
       dispatchStore(
         showSnackbar({
-          message: DOWNLOAD_FLEET_SERVICES_FILE_CONSTANTS.downloadFailedMessage,
-          severity: "error",
+          message: t(
+            DOWNLOAD_FLEET_SERVICES_FILE_CONSTANTS.downloadFailedMessage
+          ),
+          severity: t("error"),
         })
       );
       props?.downloadFileReset();

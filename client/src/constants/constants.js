@@ -2,7 +2,8 @@ export const UPLOAD_FLEET_SERVICES_FILE_CONSTANTS = {
   uploadFailedMessage: "Failed to upload file data.",
   uploadLoaderMessage:
     "Please wait while file is being cleaned, massaged and ingested.",
-  uploadSuccessMessage: "File data uploaded successfully.",
+  uploadSuccessMessage:
+    "File data cleaned, massaged and ingested successfully.",
 };
 
 export const DOWNLOAD_FLEET_SERVICES_FILE_CONSTANTS = {
@@ -16,6 +17,7 @@ export const PROCESSED_DATA_CONSTANTS = {
 };
 
 export const CHART_DATA_CONSTANTS = {
+  chartDataLoadFailedMessage: "Something went wrong while fetching the data",
   chartDataLoaderMessage: "Please wait while the chart data is being loaded.",
   mapChartDataLoaderMessage:
     "Please wait while the stations map data is being loaded.",
