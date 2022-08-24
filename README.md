@@ -1,4 +1,5 @@
 # fleet-management-services
+Bicycle fleet managment services
 
 ## Installation and running Frontend in the client folder
 ## `npm install` or `npm i`
