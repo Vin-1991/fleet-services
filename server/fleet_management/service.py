@@ -43,11 +43,14 @@ class MostPopularStationsService:
 
         store_stations_data: dict = {}
         stations_data: List = []
-        for days in uniq_week_days:
-            for station_name, bike_count in zip(
-                df_stations_data["start_station_name"], df_stations_data["bikes_count"]
-            ):
-                store_stations_data.update({"week_day": days, station_name: bike_count})
+        for _ in uniq_week_days:
+            for _, station_data in df_stations_data.iterrows():
+                store_stations_data.update(
+                    {
+                        "week_day": station_data["week_day"],
+                        station_data["start_station_name"]: station_data["bikes_count"],
+                    }
+                )
         stations_data += [store_stations_data]
         return stations_data
 
