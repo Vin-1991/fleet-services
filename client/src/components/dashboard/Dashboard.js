@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -11,13 +12,17 @@ import ClusteredChart from "./ClusteredChart";
 import DualAxisChart from "./DualAxisChart";
 import LineChart from "./LineChart";
 import SkeletonLoader from "../loader/skeleton";
+import { CHART_DATA_CONSTANTS } from "../../constants/constants";
 import {
+  showSnackbar,
   fetchPopularStationsChartDataAction,
   fetchStationsTurnOverChartDataAction,
   fetchDistributionBikeRentalDurationChartDataAction,
 } from "../../store/actions/index";
 
 const Dashboard = (props) => {
+  const dispatchStore = useDispatch();
+  const { t } = useTranslation();
   const loadChartsData = () => {
     props?.getPopularStationsChartData();
     props?.getStationsTurnOverChartData();
@@ -28,6 +33,26 @@ const Dashboard = (props) => {
     loadChartsData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (
+      props?.popularStationsChartData?.rejected ||
+      props?.stationsTurnOverChartData?.rejected ||
+      props?.distributionBikeRentalDurationChartData?.rejected
+    ) {
+      dispatchStore(
+        showSnackbar({
+          message: t(CHART_DATA_CONSTANTS.chartDataLoadFailedMessage),
+          severity: t("error"),
+        })
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    props?.popularStationsChartData?.rejected,
+    props?.stationsTurnOverChartData?.rejected,
+    props?.distributionBikeRentalDurationChartData?.rejected,
+  ]);
 
   return (
     <Box

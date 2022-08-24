@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -9,9 +10,16 @@ import Divider from "@mui/material/Divider";
 
 import SkeletonLoader from "../loader/skeleton";
 import MapChart from "../dashboard/MapChart";
-import { fetchStationsMapChartDataAction } from "../../store/actions/index";
+import {
+  showSnackbar,
+  fetchStationsMapChartDataAction,
+} from "../../store/actions/index";
+import { CHART_DATA_CONSTANTS } from "../../constants/constants";
 
 const StationsMap = (props) => {
+  const dispatchStore = useDispatch();
+  const { t } = useTranslation();
+
   const loadChartsData = () => {
     props?.getStationsMapChartData();
   };
@@ -20,6 +28,18 @@ const StationsMap = (props) => {
     loadChartsData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (props?.stationsMapOverChartData?.rejected) {
+      dispatchStore(
+        showSnackbar({
+          message: t(CHART_DATA_CONSTANTS.chartDataLoadFailedMessage),
+          severity: t("error"),
+        })
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props?.stationsMapOverChartData?.rejected]);
 
   return (
     <Box

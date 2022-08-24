@@ -138,6 +138,7 @@ const DataTable = (props) => {
   };
 
   const onDataSetSelected = (value) => {
+    props.passedDatasetName(value);
     props?.getProcessedData(value);
     setDatasetName(value);
   };

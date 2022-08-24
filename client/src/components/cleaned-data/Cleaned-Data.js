@@ -1,11 +1,13 @@
-import { useEffect } from "react";
-import { connect } from "react-redux";
+import { useState, useEffect } from "react";
+import { connect, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 
 import Datatable from "./Datatable";
 import {
+  showSnackbar,
   fetchFleetServicesProcessedDataAction,
   fetchDataSetListAction,
 } from "../../store/actions/index";
@@ -13,8 +15,14 @@ import Loader from "../loader/loader";
 import { PROCESSED_DATA_CONSTANTS } from "../../constants/constants";
 
 const CleanedData = (props) => {
+  const dispatchStore = useDispatch();
+  const { t } = useTranslation();
+  const [datasetName, setDatasetName] = useState("");
+
   const loadProcessedData = () => {
-    props?.getProcessedData("");
+    if (datasetName) {
+      props?.getProcessedData(datasetName);
+    }
     props?.getDatSetList();
   };
 
@@ -22,6 +30,18 @@ const CleanedData = (props) => {
     loadProcessedData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (props?.processedData?.rejected) {
+      dispatchStore(
+        showSnackbar({
+          message: t(PROCESSED_DATA_CONSTANTS.dataLoadFailedMessage),
+          severity: t("error"),
+        })
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props?.processedData?.rejected]);
 
   return (
     <Box
@@ -40,6 +60,7 @@ const CleanedData = (props) => {
               processedData={props?.processedData?.data}
               dataSetList={props?.dataSetList?.data}
               getProcessedData={props?.getProcessedData}
+              passedDatasetName={setDatasetName}
             />
           </Grid>
         </Grid>
