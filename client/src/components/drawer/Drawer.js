@@ -106,85 +106,83 @@ const MainDrawer = () => {
   };
 
   return (
-    <BrowserRouter>
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <AppBar position="fixed" open={open}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              sx={{
-                marginRight: 5,
-                ...(open && { display: "none" }),
-              }}
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBar position="fixed" open={open}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{
+              marginRight: 5,
+              ...(open && { display: "none" }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <DirectionsBikeRoundedIcon
+            sx={{ display: { xs: "none", md: "flex" }, mr: 1.5 }}
+          />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              fontWeight: 400,
+              letterSpacing: ".1rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            Fleet Management Services
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === "rtl" ? (
+              <ChevronRightIcon />
+            ) : (
+              <ChevronLeftIcon />
+            )}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          {/* List of navigation items */}
+          {mainListItems.map((element) => (
+            <ListItemButton
+              component={NavLink}
+              to={element.path}
+              key={element.text}
+              selected={selected === element.id}
+              onClick={(e) => setSelected(element.id)}
             >
-              <MenuIcon />
-            </IconButton>
-            <DirectionsBikeRoundedIcon
-              sx={{ display: { xs: "none", md: "flex" }, mr: 1.5 }}
-            />
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex" },
-                fontWeight: 400,
-                letterSpacing: ".1rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
-              Fleet Management Services
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "rtl" ? (
-                <ChevronRightIcon />
-              ) : (
-                <ChevronLeftIcon />
-              )}
-            </IconButton>
-          </DrawerHeader>
-          <Divider />
-          <List>
-            {/* List of navigation items */}
-            {mainListItems.map((element) => (
-              <ListItemButton
-                component={NavLink}
-                to={element.path}
-                key={element.text}
-                selected={selected === element.id}
-                onClick={(e) => setSelected(element.id)}
-              >
-                <ListItemIcon>{element.icon}</ListItemIcon>
-                <ListItemText primary={element.text} />
-              </ListItemButton>
-            ))}
-          </List>
-          <Divider />
-        </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <DrawerHeader />
-          {/* All routes */}
-          <Routes>
-            <Route exact path="/" element={<Upload />}></Route>
-            <Route path="/processed-data" element={<CleanedData />}></Route>
-            <Route path="/dashboard" element={<Dashboard />}></Route>
-            <Route path="/analysis" element={<DataAnalysis />}></Route>
-            <Route path="/stations" element={<StationsMap />}></Route>
-          </Routes>
-        </Box>
+              <ListItemIcon>{element.icon}</ListItemIcon>
+              <ListItemText primary={element.text} />
+            </ListItemButton>
+          ))}
+        </List>
+        <Divider />
+      </Drawer>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <DrawerHeader />
+        {/* All routes */}
+        <Routes>
+          <Route exact path="/" element={<Upload />}></Route>
+          <Route path="/processed-data" element={<CleanedData />}></Route>
+          <Route path="/dashboard" element={<Dashboard />}></Route>
+          <Route path="/analysis" element={<DataAnalysis />}></Route>
+          <Route path="/stations" element={<StationsMap />}></Route>
+        </Routes>
       </Box>
-    </BrowserRouter>
+    </Box>
   );
 };
 
