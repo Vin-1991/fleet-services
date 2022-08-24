@@ -13,10 +13,6 @@ DOWNLOAD_FILE_ENDPOINT = "/download-file/"
 PROCESSED_DATA_ENDPOINT = "/processed-data/"
 DATA_SETS_LIST_ENDPOINT = "/dataset-list/"
 
-FILE_PATH_EXPORT_FILE = (
-    "/Users/aggarwalvinay/PycharmProjects/fleet-services/server/data-files/"
-)
-
 DATASETS = {
     1: "bicycle_hires",
     2: "bicycle_stations",

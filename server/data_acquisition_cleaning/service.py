@@ -8,13 +8,13 @@ import os
 import pandas as pd
 
 from .constants import (
-    FILE_PATH_EXPORT_FILE,
     DOWNLOAD_CLEANED_FILE_QUERY,
     BICYCLE_HIRES_MANDATORY_COLUMNS,
     BICYCLE_STATIONS_MANDATORY_COLUMNS,
     DATASET_COLUMNS_BICYCLE_HIRES_TYPE_MAPPING,
     DATASET_COLUMNS_BICYCLE_STATIONS_TYPE_MAPPING,
 )
+from config.settings import FILE_PATH_EXPORT_FILE
 from utils.db_utils import (
     run_query_get_df,
 )
@@ -43,7 +43,7 @@ class DownloadCleanedDataViewService:
         )
 
         file_name: str = f"cleaned_{dataset}_{create_timestamp()}.csv"
-        file_path: os.PathLike = f"{FILE_PATH_EXPORT_FILE}{file_name}"
+        file_path: os.PathLike = os.path.abspath(f"{FILE_PATH_EXPORT_FILE}{file_name}")
 
         isExist: bool = os.path.exists(FILE_PATH_EXPORT_FILE)
 
