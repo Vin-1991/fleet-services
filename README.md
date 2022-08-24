@@ -1,6 +1,6 @@
 # fleet-management-services
 
-### Installation Frontend in the client folder
+## Installation and running Frontend in the client folder
 ## `npm install` or `npm i`
 
 ## `npm start`
@@ -20,6 +20,28 @@ The page will reload when you make changes.
   - React-LeafLet [Map & Geo location library](https://react-leaflet.js.org/)
 
 
+### Installation and running Backend in the server folder
+
+### Create a virtual environment
+# ` pip install virtualenv`
+
+**INSIDE** server folder _create a new virtualenv_ and activate
+  - virtualenv env
+  - Activate virtualenv
+  - source env/bin/activate
+
+### Running the server
+# `python app.py`
+
+Runs the app in the development mode.\
+Use [http://localhost:5000](http://localhost:5000) to execute APIs in Postman.
+
+
+## Packages used
+  - Flask
+  - Flask-Restful
+  - Pandas
+  - SQLAlchemy
 
 
 
