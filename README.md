@@ -44,5 +44,7 @@ Use [http://localhost:5000](http://localhost:5000) to execute APIs in Postman.
   - Pandas
   - SQLAlchemy
 
+### Running the postgres dataabase
+  - Run the script to create thee dataase with the data(optional)
 
 
