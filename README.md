@@ -46,6 +46,6 @@ Use [http://localhost:5000](http://localhost:5000) to execute APIs in Postman.
 
 ### Running the postgres dataabase
   - Run the db [script](https://github.com/Vin-1991/fleet-services/tree/main/db_script) to create thee dataase with the data(optional).
-  - Chnage the database related configurattion in the `.env` [file](https://github.com/Vin-1991/fleet-services/blob/main/server/config/.env).
+  - Change the database related configurattion in the `.env` [file](https://github.com/Vin-1991/fleet-services/blob/main/server/config/.env).
 
 
