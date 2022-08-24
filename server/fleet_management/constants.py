@@ -85,7 +85,7 @@ DISTANCE_BETWEEN_TWO_STATIONS_QUERY = """
             SELECT 
                 split_part(start_st_name,',',1) As start_st_name,
                 split_part(end_st_name,',',1) As end_st_name,
-                round(avg(dist)) AS average_distance
+                round(avg(dist)::NUMERIC,2) AS average_distance
             FROM result_1
             GROUP BY start_st_name,end_st_name
             )
