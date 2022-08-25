@@ -115,6 +115,6 @@ export const BICYCLE_STATIONS_HEAD_CELLS = [
 ];
 
 export const DATASETS = [
-  { key: "1", label: "Bicycle Hire" },
-  { key: "2", label: "Bicycle Stations" },
+  { key: 1, label: "Bicycle Hire" },
+  { key: 2, label: "Bicycle Stations" },
 ];

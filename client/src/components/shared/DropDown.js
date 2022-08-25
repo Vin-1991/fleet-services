@@ -3,6 +3,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { DATASETS } from "../cleaned-data/constants";
 
 const DropDown = (props) => {
   const [dataSet, setDataSet] = React.useState("");
@@ -23,8 +24,11 @@ const DropDown = (props) => {
         label="Dataset"
         onChange={handleChange}
       >
-        <MenuItem value={1}>Bicycle Hire</MenuItem>
-        <MenuItem value={2}>Bicycle Stations</MenuItem>
+        {DATASETS.map((row, index) => (
+          <MenuItem key={index} value={row.key}>
+            {row.label}
+          </MenuItem>
+        ))}
       </Select>
     </FormControl>
   );
