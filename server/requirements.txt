@@ -1,0 +1,9 @@
+django_environ
+environ
+Flask==2.1.0
+Flask_Cors
+Flask_RESTful
+flask_sqlalchemy
+pandas
+SQLAlchemy
+Werkzeug
